@@ -2,16 +2,16 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import StatusBar from './assets/StatusBar'
+import StatusBar from './components/StatusBar'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <StatusBar title="Hunger" value="100" />
-      <StatusBar title="Happiness" value="100" />
-      <StatusBar title="Sanity" value="0" />
+      <StatusBar title="Hunger" value="100"/>
+      {/* <StatusBar title="Happiness" value="100"/> */}
+      {/* <StatusBar title="Sanity" value="0" rate="2000"/> */}
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
