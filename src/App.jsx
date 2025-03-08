@@ -9,8 +9,9 @@ function App() {
 
   return (
     <>
-      <StatusBar title="Battery" value="50" />
-      <StatusBar title="CPU" value="70" />
+      <StatusBar title="Hunger" value="100" />
+      <StatusBar title="Happiness" value="100" />
+      <StatusBar title="Sanity" value="0" />
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
