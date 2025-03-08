@@ -8,13 +8,14 @@ function App() {
   return (
     <>
       <h1>Vite + React</h1>
-      <div className="card">
+      <div>
         <ColorButton
-          count={count}
-          setCount={setCount}
-          buttonColor="purple"
-          textColor="#262626"
-        />
+          setCount={setCount} // Pass setCount to the button
+          buttonColor="green"
+          textColor="black"
+        >
+          Count is {count} {/* Show the current count */}
+        </ColorButton>
       </div>
       <div></div>
       <p className="read-the-docs">
