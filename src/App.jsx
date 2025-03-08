@@ -9,9 +9,9 @@ function App() {
 
   return (
     <>
-      <StatusBar title="Hunger" value="100"/>
-      {/* <StatusBar title="Happiness" value="100"/> */}
-      {/* <StatusBar title="Sanity" value="0" rate="2000"/> */}
+      <StatusBar title="Hunger" value={100}/>
+      <StatusBar title="Happiness" value={100} rate={1500}/>
+      <StatusBar title="Insanity" value={0} rate={2000} direction="up"/>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
