@@ -23,7 +23,11 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "postcss": "^8.5.3",
+    "postcss-load-config": "^6.0.1",
+    "postcss-preset-env": "^10.1.5",
     "prettier": "^3.5.3",
+    "tailwindcss": "^4.0.12",
     "vite": "^6.2.1"
   },
   "packageManager": "pnpm@10.0.0-beta.3+sha512.c80ce119df06d870c6029de0040d75ca3fad1e1e386914b691cdf663ec5aa8ab470312580b11257fddf4a340fc6a9737599fc2a489b195c13bf88c86bd3f9006"
