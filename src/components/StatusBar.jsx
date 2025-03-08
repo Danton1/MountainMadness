@@ -1,18 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const StatusBar = ({ title, value, rate = 1000, direction = "down"}) => {
+const StatusBar = ({ title, value }) => {
     const [count, setCount] = useState(value);
 
-    if (count => 0 && count <= 100) {
-        setTimeout(() => {
-            if (direction == "up") {
-                setCount(count + 1);
-            } else {
-                setCount(count - 1);
-            }
-            console.log(title + " " + count); 
-        },rate);
-    }
+    useEffect(() => {
+        setCount(value);
+    }, [value]);
 
     return (
         <>

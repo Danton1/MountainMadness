@@ -1,37 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import StatusBar from './components/StatusBar'
+import Pet from './components/Pet'
+import { useState, useEffect } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [hungerValue, setHungerValue] = useState(100);
+  const [happinessValue, setHappinessValue] = useState(100);
+  const [insanityValue, setInsanityValue] = useState(0);
+  useEffect(() => {
+    if (hungerValue > 0) {
+      setTimeout(() => {
+        setHungerValue(hungerValue - 1);
+      }, 1000);
+    }
+    if (happinessValue > 0) {
+      setTimeout(() => {
+        setHappinessValue(happinessValue - 1);
+      }, 1500);
+    }
+    if (insanityValue < 100) {
+      setTimeout(() => {
+        setInsanityValue(insanityValue + 1);
+      }, 2500);
+    }
+  }, [hungerValue, happinessValue, insanityValue]);
+  
 
   return (
     <>
-      <StatusBar title="Hunger" value={100}/>
-      <StatusBar title="Happiness" value={100} rate={1500}/>
-      <StatusBar title="Insanity" value={0} rate={2000} direction="up"/>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <StatusBar title="Hunger" value={hungerValue}/>
+      <StatusBar title="Happiness" value={happinessValue} rate={50}/>
+      <StatusBar title="Insanity" value={insanityValue} rate={2000} direction="up"/>
+      <Pet hunger={hungerValue} happiness={happinessValue} insanity={insanityValue}/>
     </>
   )
 }
