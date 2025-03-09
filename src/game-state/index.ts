@@ -2,32 +2,33 @@ import { action, observable, makeObservable, computed } from 'mobx'
 import superjson, { SuperJSON } from 'superjson'
 
 import Pet from './Pet'
+import PetTalks from './petTalks'
 import type { InventoryItem } from './InventoryItem'
 
 // Library doc: https://github.com/jakesgordon/javascript-state-machine?tab=readme-ov-file
-const fsm = new StateMachine({
-  init: 'PET_IDLE',
-  transitions: [
-    { name: 'ACTION_PET_FEED', from: 'PET_IDLE', to: 'PET_FEEDING' },
-    { name: 'ACTION_PET_PLAY', from: 'PET_IDLE', to: 'PET_PLAYING' },
-    { name: 'HUNGER_DECREASE', from: '*', to: 'PET_TALKING' },
-    { name: 'INSANITY_INCREASE', from: '*', to: 'PET_CHANGING' },
-  ],
-  methods: {
-    onFeed: () => {
-      /* TODO: do something when feed is requested */
-    },
-    onPlay: () => {
-      /* TODO: do something when play is requested */
-    },
-    onPetTalking: (hunger: number, happiness: number, sanity: number) => {
-      PetTalks({ hunger, happiness, sanity })
-    },
-    onPetChanging: (sanity: number) => {
-      PetTalks({ hunger: 0, happiness: 0, sanity })
-    },
-  },
-})
+// const fsm = new StateMachine({
+//   init: 'PET_IDLE',
+//   transitions: [
+//     { name: 'ACTION_PET_FEED', from: 'PET_IDLE', to: 'PET_FEEDING' },
+//     { name: 'ACTION_PET_PLAY', from: 'PET_IDLE', to: 'PET_PLAYING' },
+//     { name: 'HUNGER_DECREASE', from: '*', to: 'PET_TALKING' },
+//     { name: 'INSANITY_INCREASE', from: '*', to: 'PET_CHANGING' },
+//   ],
+//   methods: {
+//     onFeed: () => {
+//       /* TODO: do something when feed is requested */
+//     },
+//     onPlay: () => {
+//       /* TODO: do something when play is requested */
+//     },
+//     onPetTalking: (hunger: number, happiness: number, sanity: number) => {
+//       PetTalks({ hunger, happiness, sanity })
+//     },
+//     onPetChanging: (sanity: number) => {
+//       PetTalks({ hunger: 0, happiness: 0, sanity })
+//     },
+//   },
+// })
 
 enum GAME_STATE {
   PET_IDLE = 'PET_IDLE',
@@ -35,6 +36,7 @@ enum GAME_STATE {
   PET_PLAYING = 'PET_PLAYING',
   PET_CLEANING = 'PET_CLEANING',
   PET_TALKING = 'PET_TALKING',
+  PET_CHANGING = 'PET_CHANGING', // Add this new state
   PET_RESULT = 'PET_RESULT',
 }
 
@@ -46,12 +48,15 @@ export class GameState {
   @observable accessor #state: GAME_STATE = GAME_STATE.PET_IDLE
   @observable accessor isAnimating: boolean = false
   @observable accessor isGameOver: boolean = false
+  @observable accessor currentDialogue: string = ''
+  @observable accessor talkingActive: boolean = false
 
   // Interval timers
   #hungerInterval: IntervalToken = null
   #happinessInterval: IntervalToken = null
   #healthInterval: IntervalToken = null
   #sanityInterval: IntervalToken = null
+  #talkingInterval: IntervalToken = null
 
   constructor() {
     makeObservable(this)
@@ -161,6 +166,17 @@ export class GameState {
           this.checkGameOver()
         }
       }, 2500)
+
+      // Random talking timer - pet talks every 15-30 seconds
+      this.#talkingInterval = setInterval(() => {
+        if (this.state === GAME_STATE.PET_IDLE && !this.isAnimating) {
+          // Random chance for pet to talk
+          if (Math.random() < 0.3) {
+            // 30% chance
+            this.triggerPetTalking()
+          }
+        }
+      }, 15000) // Check every 15 seconds
     }
   }
 
@@ -183,6 +199,81 @@ export class GameState {
       clearInterval(this.#sanityInterval)
       this.#sanityInterval = null
     }
+    if (this.#talkingInterval) {
+      clearInterval(this.#talkingInterval)
+      this.#talkingInterval = null
+    }
+  }
+
+  @action
+  async triggerPetTalking() {
+    // Save previous state to return to
+    const previousState = this.#state
+
+    // Set state to talking
+    this.#state = GAME_STATE.PET_TALKING
+    this.talkingActive = true
+
+    // Get dialogue based on current stats
+    const dialogue = this.getPetDialogue()
+    this.currentDialogue = dialogue
+
+    // Wait for dialogue duration
+    await new Promise((resolve) => setTimeout(resolve, 4000))
+
+    // Return to previous state
+    this.#state = previousState
+    this.talkingActive = false
+    this.currentDialogue = ''
+  }
+
+  @action
+  async triggerPetChanging() {
+    // Set state to changing
+    this.#state = GAME_STATE.PET_CHANGING
+    this.talkingActive = true
+
+    // Get dialogue for changing state
+    const dialogue = this.getPetDialogue(true)
+    this.currentDialogue = dialogue
+
+    // Wait for dialogue duration
+    await new Promise((resolve) => setTimeout(resolve, 4000))
+
+    // Return to idle
+    this.#state = GAME_STATE.PET_IDLE
+    this.talkingActive = false
+    this.currentDialogue = ''
+  }
+
+  private getPetDialogue(isChanging: boolean = false): string {
+    // Create a dialogueCapture function to capture console.log output
+    let capturedDialogue = ''
+    const originalConsoleLog = console.log
+    console.log = (message: string) => {
+      capturedDialogue = message
+      originalConsoleLog(message)
+    }
+
+    if (isChanging) {
+      // Call PetTalks with hunger and happiness as 0 for changing state
+      PetTalks({
+        hunger: 0,
+        happiness: 0,
+        sanity: this.#pet.sanity,
+      })
+    } else {
+      // Call PetTalks with actual stats for talking
+      PetTalks({
+        hunger: this.#pet.hunger,
+        happiness: this.#pet.happiness,
+        sanity: this.#pet.sanity,
+      })
+    }
+
+    // Restore console.log
+    console.log = originalConsoleLog
+    return capturedDialogue
   }
 
   @action
@@ -196,6 +287,12 @@ export class GameState {
     // Simulate animation with timeout
     await this.runAnimation()
     this.#pet.hunger += 20
+
+    // 20% chance to talk after being fed
+    if (Math.random() < 0.2) {
+      await this.triggerPetTalking()
+    }
+
     this.completeAction()
   }
 
@@ -209,6 +306,12 @@ export class GameState {
 
     await this.runAnimation()
     this.#pet.happiness += 20
+
+    // 30% chance to talk after playing
+    if (Math.random() < 0.3) {
+      await this.triggerPetTalking()
+    }
+
     this.completeAction()
   }
 
@@ -222,6 +325,20 @@ export class GameState {
 
     await this.runAnimation()
     this.#pet.sanity -= 20
+
+    // If sanity drops significantly, trigger changing dialogue
+    const oldSanity = this.#pet.sanity + 20
+    if (
+      (oldSanity >= 25 && this.#pet.sanity < 25) ||
+      (oldSanity >= 50 && this.#pet.sanity < 50) ||
+      (oldSanity >= 75 && this.#pet.sanity < 75)
+    ) {
+      await this.triggerPetChanging()
+    } else if (Math.random() < 0.2) {
+      // 20% chance to talk after cleaning
+      await this.triggerPetTalking()
+    }
+
     this.completeAction()
   }
 

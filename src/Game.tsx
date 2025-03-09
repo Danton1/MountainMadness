@@ -12,16 +12,16 @@ const GameComponent = observer(() => {
     new GameState(),
   )
 
+  if (!gameState) {
+    throw new Error('Game state is somehow undefined')
+  }
+
   const handleEndOverlay = useCallback(
     (adWatched: boolean) => {
       gameState.resurrectPet(adWatched)
     },
     [gameState],
   )
-
-  if (!gameState) {
-    throw new Error('Game state is somehow undefined')
-  }
 
   return (
     <div>

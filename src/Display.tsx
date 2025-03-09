@@ -32,8 +32,16 @@ export const Display = observer(({ game }: Props) => {
             width={constantWidth}
             height={constantHeight}
             animationState={game.state}
+            insanity={insanityValue}
           />
         </div>
+
+        {/* Display dialogue when the pet is talking */}
+        {game.talkingActive && (
+          <div className="speech-bubble mb-4 p-3 bg-white rounded-lg border border-gray-300 shadow-md">
+            {game.currentDialogue}
+          </div>
+        )}
 
         <Pet
           hunger={hungerValue}
