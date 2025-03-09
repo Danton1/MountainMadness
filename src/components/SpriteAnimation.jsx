@@ -14,12 +14,11 @@ export default function SpriteAnimation({
 
     // Handle different animation states
     if (animationState === 'PET_FEEDING') {
-      gifPath = '/pet-animations/eating.gif'
+      gifPath = '/pet-animations/feeding.gif'
     } else if (animationState === 'PET_PLAYING') {
-      gifPath = '/pet-animations/dance.gif'
+      gifPath = '/pet-animations/playing.gif'
     } else if (animationState === 'PET_CLEANING') {
-      // TODO
-      // gifPath = '/pet-animations/cleaning.gif'
+      gifPath = '/pet-animations/cleaning.gif'
     } else if (
       animationState === 'PET_TALKING' ||
       animationState === 'PET_CHANGING'
