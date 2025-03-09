@@ -24,8 +24,8 @@ export const Display = observer(({ game }: Props) => {
   const constantHeight = 150
 
   return (
-    <div className="checkered-background hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col">
+    <div className="checkered-background hero bg-base-200 min-h-screen flex flex-col">
+      <div className="hero-content flex-col flex-grow">
         <div className="pet-status-container">
           <div className="pet-container">
             <div className="pet-shadow"></div> {/* Add shadow */}
@@ -35,23 +35,15 @@ export const Display = observer(({ game }: Props) => {
           </div>
 
           <div className="status-bars">
-            <Pet
-              hunger={hungerValue}
-              happiness={happinessValue}
-              sanity={insanityValue}
-              gameEnd={gameEnd}
-            />
-            <StatusBar title="Hunger" value={hungerValue} />
-            <StatusBar
-              title="Happiness"
-              value={happinessValue} /* rate={50} */
-            />
-            <StatusBar
-              title="Insanity"
-              value={insanityValue}
-              // rate={2000}
-              // direction="up"
-            />
+            <div className="status-bar">
+              <StatusBar title="Hunger" value={hungerValue} />
+            </div>
+            <div className="status-bar">
+              <StatusBar title="Happiness" value={happinessValue} />
+            </div>
+            <div className="status-bar">
+              <StatusBar title="Insanity" value={insanityValue} />
+            </div>
           </div>
         </div>
 

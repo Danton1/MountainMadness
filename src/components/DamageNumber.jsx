@@ -2,8 +2,6 @@ import { useEffect } from 'react'
 
 export default function DamageNumber({
   value,
-  top,
-  left,
   onComplete,
   randomX,
   baseColor = '255, 140, 0', // Default base color in RGB format
@@ -20,11 +18,9 @@ export default function DamageNumber({
 
   return (
     <div
-      className="absolute text-xl font-bold pointer-events-none select-none
-                animate-floatAndFade"
+      className="fixed top-[60%] text-xl font-bold pointer-events-none select-none
+                animate-floatAndFade z-[4]"
       style={{
-        top: `${top}px`,
-        left: `${left}px`,
         '--random-x': `${randomX}px`,
         color: `rgb(${darkColor})`,
       }}

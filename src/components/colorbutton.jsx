@@ -1,3 +1,6 @@
+import DamageNumber from './DamageNumber' // Import the DamageNumber component
+import './floatAndFade.css' // Import the CSS file
+
 export default function ColorButton({
   textColor = '#333333',
   children,
@@ -27,14 +30,14 @@ export default function ColorButton({
       style={{
         color: textColor,
         '--base-color': baseColor,
-        '--base-color-dark': baseColor
+        '--base-color-dark': `${baseColor
           .split(',')
           .map((c) => Math.max(0, Number(c) - 15))
-          .join(','),
-        '--base-color-shadow': baseColor
+          .join(',')}`,
+        '--base-color-shadow': `${baseColor
           .split(',')
           .map((c) => Math.max(0, Number(c) - 40))
-          .join(','),
+          .join(',')}`,
         backgroundImage: `linear-gradient(180deg, rgba(var(--base-color), 0.55) 58%, rgba(var(--base-color-dark), 0.55))`,
         '--tw-border-opacity': '0.58',
         borderColor: `rgba(var(--base-color-shadow), var(--tw-border-opacity))`,

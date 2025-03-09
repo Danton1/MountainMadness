@@ -36,12 +36,18 @@
   width: 100%;
   padding: 20px; /* Reduced padding */
   gap: 40px; /* Add gap between pet and status bars */
+  z-index: 5; /* Ensure it is above the solid color sections */
 }
 
 .pet-container {
   display: flex;
   justify-content: center;
-  position: relative; /* Add relative positioning */
+  align-items: center; /* Center vertically */
+  position: absolute; /* Position it absolutely */
+  top: 50%; /* Center vertically */
+  left: 52%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  z-index: 5; /* Ensure it is above the damage numbers */
 }
 
 .pet-shadow {
@@ -61,7 +67,59 @@
 
 .status-bars {
   display: flex;
-  flex-direction: column;
-  gap: 5px; /* Reduced gap */
-  align-items: center; /* Center the status bars */
+  flex-direction: row; /* Change to row to align horizontally */
+  gap: 30px; /* Adjust gap between status bars */
+  align-items: center; /* Center the status bars vertically */
+  position: absolute; /* Position it absolutely */
+  top: 15%; /* Position it 1/3 from the top */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  z-index: 2; /* Ensure it is above the solid color sections */
+}
+
+.button-scroll-container {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: flex-end; /* Align the buttons at the bottom */
+  flex-grow: 1; /* Allow the container to grow and push the buttons to the bottom */
+  padding: 0 18px; /* Add padding to prevent clipping */
+  margin-top: auto; /* Push the container to the bottom */
+  margin-bottom: 100px; /* Raise the buttons by 50px */
+  z-index: 2; /* Ensure it is above the solid color sections */
+  transform: translateY(-150px); /* Move the container up by 150px */
+  --damage-number-offset-y: -150px; /* Set the top offset for damage numbers */
+  --damage-number-offset-x: -20px; /* Set the left offset for damage numbers */
+}
+
+.button-container {
+  display: flex;
+  white-space: nowrap; /* Prevent button wrapping */
+  gap: 30px; /* Adjust spacing between buttons */
+  align-items: center;
+  justify-content: center; /* Center buttons horizontally */
+  min-height: 100px;
+  margin: 0; /* Remove default margin */
+  box-sizing: border-box;
+  overflow-x: visible; /* Allow shadows and pseudo-elements to overflow */
+  position: relative; /* Add this to make it the positioned ancestor */
+}
+
+.top-colored-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 33%; /* 1/3 of the viewport height */
+  background-color: #ffcccc; /* Adjust the color as needed */
+  z-index: 1; /* Ensure it is above the scrolling background */
+}
+
+.bottom-colored-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 33%; /* 1/3 of the viewport height */
+  background-color: #ccffcc; /* Adjust the color as needed */
+  z-index: 1; /* Ensure it is above the scrolling background */
 }
