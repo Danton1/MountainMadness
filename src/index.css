@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
 @font-face {
   font-family: 'FairyMuffin';
   src: url('/fonts/Fairymuffinroundpop-1GG5e.ttf') format('truetype');
@@ -12,6 +15,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
+  /* background-color: #242424; */
   background-color: #242424;
 
   font-synthesis: none;
@@ -19,6 +23,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 a {
   font-weight: 500;
@@ -31,9 +36,14 @@ a:hover {
 
 body {
   margin: 0;
+  height: 100%;
+}
+
+#root {
   display: flex;
   place-items: center;
   min-width: 320px;
+  width: 100%;
   min-height: 100vh;
 }
 

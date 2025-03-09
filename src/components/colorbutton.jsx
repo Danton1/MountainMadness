@@ -22,13 +22,13 @@ export default function ColorButton({
 
   const beforeStyles = {
     content: '""',
-    position: "absolute",
+    position: 'absolute',
     zIndex: -1,
-    inset: "-1px",
-    marginInline: "auto",
-    background: "linear-gradient(hsl(240, 74%, 30%), hsl(0, 0%, 38%))",
-    borderRadius: "100vw",
-  };
+    inset: '-1px',
+    marginInline: 'auto',
+    background: 'linear-gradient(hsl(240, 74%, 30%), hsl(0, 0%, 38%))',
+    borderRadius: '100vw',
+  }
 
   return (
     <button
@@ -38,5 +38,5 @@ export default function ColorButton({
       {children} {/* Render the custom text or content passed to the button */}
       <span style={beforeStyles}></span>
     </button>
-  );
+  )
 }
