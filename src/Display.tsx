@@ -5,6 +5,7 @@ import type { Game } from './game-state'
 import SpriteAnimation from './components/SpriteAnimation'
 import StatusBar from './components/StatusBar'
 import Pet from './components/Pet'
+import PetTalks from './game-state/petTalks'
 import './display.css'
 
 interface Props {
