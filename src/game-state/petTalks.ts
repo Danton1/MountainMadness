@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ColorButton from '../components/colorbutton'
+import ColorButton from '../components/ColorButton'
 import MovingButton from '../components/movingbutton'
 import {
   SaneCat,
@@ -17,27 +17,31 @@ interface PetTalksProps {
   sanity: number
 }
 
-export default function PetTalks({ hunger, happiness, sanity }: PetTalksProps) {
-  const cannibal = () => {
+export default function PetTalks({
+  hunger,
+  happiness,
+  sanity,
+}: PetTalksProps): string {
+  const cannibal = (): string => {
     let random = Math.floor(Math.random() * 7) + 1
     return CannibalCat[random.toString() as keyof typeof CannibalCat]
   }
 
-  const knock = () => {
+  const knock = (): string => {
     let random = Math.floor(Math.random() * 7) + 1
     const audio = new Audio('/audio/knocking_door.mp3')
     audio.play()
     return Door[random.toString() as keyof typeof Door]
   }
 
-  const laugh = () => {
+  const laugh = (): string => {
     let random = Math.floor(Math.random() * 7) + 1
     const audio = new Audio('/audio/laugh.mp3')
     audio.play()
     return CatLaughs[random.toString() as keyof typeof CatLaughs]
   }
 
-  const saneCat = () => {
+  const saneCat = (): string => {
     let random = Math.floor(Math.random() * 7) + 1
     return SaneCat[random.toString() as keyof typeof SaneCat]
   }

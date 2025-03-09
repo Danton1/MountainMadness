@@ -34,7 +34,6 @@ export default function SpriteAnimation({
         gifPath = '/pet-animations/100.gif'
       }
     }
-
     setGifSrc(gifPath)
 
     // Cleanup function
@@ -59,5 +58,5 @@ export default function SpriteAnimation({
         }}
       />
     </div>
-  );
+  )
 }

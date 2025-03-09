@@ -1,14 +1,12 @@
 import './App.css'
-import Game from './GameContainer'
+import GamerContainer from './GameContainer'
 
 function App() {
   return (
     <>
-      <div className="w-full h-full">
-        <main className="w-full h-full">
-          <Game />
-        </main>
-      </div>
+      <main className="w-full h-full">
+        <GamerContainer />
+      </main>
     </>
   )
 }
