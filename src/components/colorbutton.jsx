@@ -1,26 +1,41 @@
-export default function ColorButton ({
+import { useState } from 'react'
+
+export default function ColorButton({
   setCount,
-  buttonColor = 'blue',
-  textColor = '#333333',
+  textColor = '#333333', // You can keep the text color as a prop if you like
   children,
-  clickFn = () => setCount((prevCount) => prevCount + 1),
 }) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  // Replace with original button styles (no custom color)
   const buttonStyles = {
-    backgroundImage: `linear-gradient(hsl(0 0% 100% / 0.85), transparent 10px),
-      linear-gradient(hsl(0 0% 100% / 0.25) 10px, transparent 10px),
-      radial-gradient(circle at 10px 5px, hsl(0 0% 100% / 0.25) 5px, transparent 5px),
-      radial-gradient(circle at 0px 5px, hsl(0 0% 100% / 0.25) 5px, transparent 5px),
-      linear-gradient(${buttonColor}, hsl(181, 95%, 92%))`, // Use the passed button color
-    padding: '0.5em 3em',
-    backgroundSize: '100%, calc(100% - 20px), 10px 10px, 10px 10px, 100%',
-    backgroundPosition: 'top, top center, top left, top right, center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    lineHeight: '1',
+    textDecoration: 'none',
+    color: textColor, // Dynamically set the text color
+    fontSize: '18px',
+    fontWeight: 'bold',
+    borderRadius: '20px',
+    width: isHovered ? '176px' : '175px', // Adjust width on hover
+    height: isHovered ? '51px' : '50px', // Adjust height on hover
+    transition: '0.2s',
+    boxShadow: isHovered
+      ? '0px 0px 0px 8px rgba(255, 180, 0, 0.58)'
+      : '0px 0px 0px 7px rgba(255, 180, 0, 0.58)', // Adjust box-shadow on hover
+    backgroundColor: 'transparent', // Transparent background to work with gradient
+    backgroundImage: `linear-gradient(180deg, rgba(255, 140, 0, 0.55) 58%, rgba(255, 125, 0, 0.55)), 
+                      linear-gradient(#FF8C00, #FF7D00)`, // Predefined gradient colors (no custom color)
+    backgroundSize: '100%, 100%',
+    backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     border: '0',
-    borderRadius: '100vw',
+    cursor: 'pointer',
     position: 'relative',
-    color: textColor, // Dynamically set the text color
   }
 
+  // Styles for the pseudo-element
   const beforeStyles = {
     content: '""',
     position: 'absolute',
@@ -33,8 +48,10 @@ export default function ColorButton ({
 
   return (
     <button
-      onClick={clickFn} // Update count when button is clicked
+      onClick={() => setCount((prevCount) => prevCount + 1)} // Update count when button is clicked
       style={buttonStyles}
+      onMouseEnter={() => setIsHovered(true)} // Set hover state
+      onMouseLeave={() => setIsHovered(false)} // Remove hover state
     >
       {children} {/* Render the custom text or content passed to the button */}
       <span style={beforeStyles}></span>
