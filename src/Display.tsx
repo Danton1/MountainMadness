@@ -1,43 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { observer } from 'mobx-react'
+import type { Game } from './game-state'
 
-import { GameState } from './game-state'
-
-import ColorButton from './components/colorbutton'
 import SpriteAnimation from './components/SpriteAnimation'
 import StatusBar from './components/StatusBar'
 import Pet from './components/Pet'
-import './display.css'; 
+import './display.css'
 
 interface Props {
-  state: GameState
-  gameEnd: () => void
+  game: Game
 }
 
-export function Display({ gameEnd }: Props) {
-  // TODO: remove placeholders and implement
-
-  const [count, setCount] = useState(0)
-  const [hungerValue, setHungerValue] = useState(100)
-  const [happinessValue, setHappinessValue] = useState(100)
-  const [insanityValue, setInsanityValue] = useState(0)
-  
-  useEffect(() => {
-    if (hungerValue > 0) {
-      setTimeout(() => {
-        setHungerValue(hungerValue - 1)
-      }, 1000)
-    }
-    if (happinessValue > 0) {
-      setTimeout(() => {
-        setHappinessValue(happinessValue - 1)
-      }, 1500)
-    }
-    if (insanityValue < 100) {
-      setTimeout(() => {
-        setInsanityValue(insanityValue + 1)
-      }, 2500)
-    }
-  }, [hungerValue, happinessValue, insanityValue])
+export const Display = observer(({ game }: Props) => {
+  // Use the pet's properties from the MobX state
+  const { pet } = game
+  const hungerValue = pet.hunger
+  const happinessValue = pet.happiness
+  const healthValue = pet.health
+  const insanityValue = pet.sanity
 
   // Define the size you want to set for the GIF
   const constantWidth = 150
@@ -47,36 +27,27 @@ export function Display({ gameEnd }: Props) {
     <div className="checkered-background hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col">
         <div className="main-element">
-          <SpriteAnimation width={constantWidth} height={constantHeight} />
+          <SpriteAnimation
+            width={constantWidth}
+            height={constantHeight}
+            animationState={game.state}
+          />
         </div>
 
         <Pet
           hunger={hungerValue}
           happiness={happinessValue}
+          health={healthValue}
           sanity={insanityValue}
-          gameEnd={gameEnd}
         />
 
         <div className="text-rose-900">
+          <StatusBar title="Health" value={healthValue} />
           <StatusBar title="Hunger" value={hungerValue} />
-          <StatusBar title="Happiness" value={happinessValue} /* rate={50} */ />
-          <StatusBar
-            title="Insanity"
-            value={insanityValue}
-            // rate={2000}
-            // direction="up"
-          />
-        </div>
-
-        <div className="main-element">
-          <ColorButton
-            setCount={setCount} // Pass setCount to the button
-            textColor="black"
-          >
-            Count is {count}
-          </ColorButton>
+          <StatusBar title="Happiness" value={happinessValue} />
+          <StatusBar title="Insanity" value={insanityValue} />
         </div>
       </div>
     </div>
   )
-}
+})
