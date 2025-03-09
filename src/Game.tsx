@@ -6,7 +6,7 @@ import { useState } from 'react';
 import GameEnd from './components/gameEnd.jsx';
 
 export default function Game() {
-  const [gameOver, setGameOver] = useState(true);    //This value should be updated when the game ends
+  const [gameOver, setGameOver] = useState(false);    //This value should be updated when the game ends
 
   function endOverlay(){
     setGameOver(false);
