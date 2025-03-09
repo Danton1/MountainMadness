@@ -1,8 +1,7 @@
 body,
 .checkered-background {
   user-select: none; /* Prevent text selection on the entire page */
-  color: white; /* Make all text white */
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 1); /* Stronger black drop shadow */
+  color: black; /* Make all text black */
 }
 
 .checkered-background {
