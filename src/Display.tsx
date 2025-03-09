@@ -4,7 +4,6 @@ import type { Game } from './game-state'
 
 import SpriteAnimation from './components/SpriteAnimation'
 import StatusBar from './components/StatusBar'
-import Pet from './components/Pet'
 import './display.css'
 
 interface Props {
@@ -30,16 +29,16 @@ export const Display = observer(({ game }: Props) => {
           <SpriteAnimation
             width={constantWidth}
             height={constantHeight}
-            animationState={game.state}
+            // animationState={game.state}
           />
         </div>
 
-        <Pet
+        {/* <Pet
           hunger={hungerValue}
           happiness={happinessValue}
           health={healthValue}
           sanity={insanityValue}
-        />
+        /> */}
 
         <div className="text-rose-900">
           <StatusBar title="Health" value={healthValue} />
