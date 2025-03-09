@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function GameEnd() {
+export default function GameEnd({exitFn}) {
   const [mouseX, setMouseX] = useState(0);
   const [mouseY, setMouseY] = useState(0);
   const [btnTranslate, setBtnTranslate] = useState({ x: 0, y: 0 }); // Use translate for position
@@ -8,6 +8,7 @@ export default function GameEnd() {
 
   function exit() {
     console.log("here");
+    exitFn();
   }
 
   const popupStyle = {
@@ -85,7 +86,7 @@ export default function GameEnd() {
         </button>
       </div>
       {video && (
-        <video autoPlay style={{ marginTop: "20px", width: "100%", maxWidth: "600px" }}>
+        <video autoPlay onEnded={exit} style={{ marginTop: "20px", width: "100%", maxWidth: "600px" }}>
           <source src="src/assets/yukon.mp4" type="video/mp4" />
         </video>
       )}
