@@ -4,7 +4,6 @@ import type { Game } from './game-state'
 
 import SpriteAnimation from './components/SpriteAnimation'
 import StatusBar from './components/StatusBar'
-import Pet from './components/Pet'
 import PetTalks from './game-state/petTalks'
 import './display.css'
 
@@ -31,24 +30,18 @@ export const Display = observer(({ game }: Props) => {
           <SpriteAnimation
             width={constantWidth}
             height={constantHeight}
+            insanity={insanityValue}
             animationState={game.state}
             insanity={insanityValue}
           />
         </div>
 
-        {/* Display dialogue when the pet is talking */}
-        {game.talkingActive && (
-          <div className="speech-bubble mb-4 p-3 bg-white rounded-lg border border-gray-300 shadow-md">
-            {game.currentDialogue}
-          </div>
-        )}
-
-        <Pet
+        {/* <Pet
           hunger={hungerValue}
           happiness={happinessValue}
-          health={healthValue}
           sanity={insanityValue}
-        />
+          gameEnd={gameEnd}
+        /> */}
 
         <div className="text-rose-900">
           <StatusBar title="Health" value={healthValue} />
