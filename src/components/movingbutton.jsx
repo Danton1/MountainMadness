@@ -1,49 +1,49 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
 export default function MovingButton({
   setCount,
-  textColor = "#333333",
+  textColor = '#333333',
   children,
   clickFn = () => setCount((prevCount) => prevCount + 1),
 }) {
-  const [btnTranslate, setBtnTranslate] = useState({ x: 0, y: 0 }); // State for button translation
-  const [mouseX, setMouseX] = useState(0); // State for mouse X position
-  const [mouseY, setMouseY] = useState(0); // State for mouse Y position
+  const [btnTranslate, setBtnTranslate] = useState({ x: 0, y: 0 }) // State for button translation
+  const [mouseX, setMouseX] = useState(0) // State for mouse X position
+  const [mouseY, setMouseY] = useState(0) // State for mouse Y position
 
   // Track mouse movement
   useEffect(() => {
     const handleMouseMove = (event) => {
-      setMouseX(event.clientX);
-      setMouseY(event.clientY);
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+      setMouseX(event.clientX)
+      setMouseY(event.clientY)
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
 
   // Update button position based on mouse proximity
   useEffect(() => {
-    const button = document.getElementById("exit-btn");
-    if (!button) return;
+    const button = document.getElementById('exit-btn')
+    if (!button) return
 
-    const btnRect = button.getBoundingClientRect();
-    const btnCenterX = btnRect.left + btnRect.width / 2;
-    const btnCenterY = btnRect.top + btnRect.height / 2;
+    const btnRect = button.getBoundingClientRect()
+    const btnCenterX = btnRect.left + btnRect.width / 2
+    const btnCenterY = btnRect.top + btnRect.height / 2
 
-    const distX = mouseX - btnCenterX;
-    const distY = mouseY - btnCenterY;
-    const distance = Math.sqrt(distX ** 2 + distY ** 2);
+    const distX = mouseX - btnCenterX
+    const distY = mouseY - btnCenterY
+    const distance = Math.sqrt(distX ** 2 + distY ** 2)
 
-    const threshold = 140; // Distance threshold for button movement
+    const threshold = 140 // Distance threshold for button movement
     if (distance < threshold) {
-      const moveX = (distX / distance) * 7; // Move speed in X direction
-      const moveY = (distY / distance) * 7; // Move speed in Y direction
+      const moveX = (distX / distance) * 7 // Move speed in X direction
+      const moveY = (distY / distance) * 7 // Move speed in Y direction
 
       setBtnTranslate((prev) => ({
         x: prev.x - moveX,
         y: prev.y - moveY,
-      }));
+      }))
     }
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY])
 
   const buttonStyles = {
     display: 'flex',
@@ -68,8 +68,8 @@ export default function MovingButton({
     cursor: 'pointer',
     position: 'relative',
     transform: `translate(${btnTranslate.x}px, ${btnTranslate.y}px)`, // Apply translation
-    transition: "transform 0s", // Smooth transition for movement
-  };
+    transition: 'transform 0s', // Smooth transition for movement
+  }
 
   return (
     <button
@@ -79,5 +79,5 @@ export default function MovingButton({
     >
       {children} {/* Render the custom text or content passed to the button */}
     </button>
-  );
+  )
 }

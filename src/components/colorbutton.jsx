@@ -1,13 +1,8 @@
-import { useState } from 'react'
-
 export default function ColorButton({
-  setCount,
   textColor = '#333333', // You can keep the text color as a prop if you like
   children,
-  clickFn = () => setCount((prevCount) => prevCount + 1)
+  onClick,
 }) {
-  const [isHovered, setIsHovered] = useState(false)
-
   // Replace with original button styles (no custom color)
   const buttonStyles = {
     display: 'flex',
@@ -19,12 +14,7 @@ export default function ColorButton({
     fontSize: '18px',
     fontWeight: 'bold',
     borderRadius: '20px',
-    width: isHovered ? '176px' : '175px', // Adjust width on hover
-    height: isHovered ? '51px' : '50px', // Adjust height on hover
     transition: '0.2s',
-    boxShadow: isHovered
-      ? '0px 0px 0px 8px rgba(255, 180, 0, 0.58)'
-      : '0px 0px 0px 7px rgba(255, 180, 0, 0.58)', // Adjust box-shadow on hover
     backgroundColor: 'transparent', // Transparent background to work with gradient
     backgroundImage: `linear-gradient(180deg, rgba(255, 140, 0, 0.55) 58%, rgba(255, 125, 0, 0.55)), 
                       linear-gradient(#FF8C00, #FF7D00)`, // Predefined gradient colors (no custom color)
@@ -49,10 +39,9 @@ export default function ColorButton({
 
   return (
     <button
-      onClick={clickFn} // Update count when button is clicked
+      onClick={onClick} // Update count when button is clicked
       style={buttonStyles}
-      onMouseEnter={() => setIsHovered(true)} // Set hover state
-      onMouseLeave={() => setIsHovered(false)} // Remove hover state
+      className="w-[175px] hover:w-[176px] h-50px hover:h-[51px] shadow-xl hover:shadow-2xl "
     >
       {children} {/* Render the custom text or content passed to the button */}
       <span style={beforeStyles}></span>
