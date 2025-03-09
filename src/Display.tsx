@@ -3,6 +3,7 @@ import type { Game } from './game-state'
 
 import SpriteAnimation from './components/SpriteAnimation'
 import StatusBar from './components/StatusBar'
+import PetTalks from './game-state/petTalks'
 import './display.css'
 import { useEffect } from 'react'
 

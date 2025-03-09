@@ -15,15 +15,24 @@ interface PetTalksProps {
   hunger: number
   happiness: number
   sanity: number
+  updateHunger: (amount: number) => void
+  updateInsanity: (amount: number) => void
+  updateHappiness: (amount: number) => void
 }
 
 export default function PetTalks({
   hunger,
   happiness,
   sanity,
+  updateHunger,
+  updateInsanity,
+  updateHappiness,
 }: PetTalksProps): string {
-  const cannibal = (): string => {
+  const cannibal = () => {
     let random = Math.floor(Math.random() * 7) + 1
+    updateHunger(25)
+    updateInsanity(10)
+    updateHappiness(10)
     return CannibalCat[random.toString() as keyof typeof CannibalCat]
   }
 

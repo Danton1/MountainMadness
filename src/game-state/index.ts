@@ -6,6 +6,31 @@ import PetTalks from './petTalks'
 import type { InventoryItem } from './InventoryItem'
 import { TimerManager, type StatName } from './timers'
 
+// Library doc: https://github.com/jakesgordon/javascript-state-machine?tab=readme-ov-file
+// const fsm = new StateMachine({
+//   init: 'PET_IDLE',
+//   transitions: [
+//     { name: 'ACTION_PET_FEED', from: 'PET_IDLE', to: 'PET_FEEDING' },
+//     { name: 'ACTION_PET_PLAY', from: 'PET_IDLE', to: 'PET_PLAYING' },
+//     { name: 'HUNGER_DECREASE', from: '*', to: 'PET_TALKING' },
+//     { name: 'INSANITY_INCREASE', from: '*', to: 'PET_CHANGING' },
+//   ],
+//   methods: {
+//     onFeed: () => {
+//       /* TODO: do something when feed is requested */
+//     },
+//     onPlay: () => {
+//       /* TODO: do something when play is requested */
+//     },
+//     onPetTalking: (hunger: number, happiness: number, sanity: number) => {
+//       PetTalks({ hunger, happiness, sanity })
+//     },
+//     onPetChanging: (sanity: number) => {
+//       PetTalks({ hunger: 0, happiness: 0, sanity })
+//     },
+//   },
+// })
+
 enum GAME_STATE {
   PET_IDLE = 'PET_IDLE',
   PET_FEEDING = 'PET_FEEDING',
@@ -64,6 +89,22 @@ export class GameState {
   }
 
   @action
+  updateHunger(amount: number) {
+    this.pet.hunger += amount
+  }
+
+  @action
+  updateInsanity(amount: number) {
+    this.pet.sanity += amount
+    this.startTimers()
+  }
+
+  @action
+  updateHappiness(amount: number) {
+    this.pet.happiness += amount
+  }
+
+  @action
   resurrectPet(fullResurrection: boolean) {
     if (fullResurrection) {
       // Full resurrection from ad
@@ -119,6 +160,9 @@ export class GameState {
       hunger: isChanging ? 0 : this.pet.hunger,
       happiness: isChanging ? 0 : this.pet.happiness,
       sanity: this.pet.sanity,
+      updateHunger: this.updateHunger.bind(this),
+      updateInsanity: this.updateInsanity.bind(this),
+      updateHappiness: this.updateHappiness.bind(this),
     })
 
     // Wait for dialogue duration
