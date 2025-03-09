@@ -9,9 +9,10 @@ import Pet from './components/Pet'
 
 interface Props {
   state: GameState
+  gameEnd: () => void
 }
 
-export function Display(props: Props) {
+export function Display({ gameEnd }: Props) {
   // TODO: remove placeholders and implement
 
   const [count, setCount] = useState(0)
@@ -51,7 +52,7 @@ export function Display(props: Props) {
           hunger={hungerValue}
           happiness={happinessValue}
           sanity={insanityValue}
-          className="max-w-sm rounded-lg shadow-2xl"
+          gameEnd={gameEnd}
         />
 
         <div className="text-rose-900">
@@ -68,7 +69,6 @@ export function Display(props: Props) {
         <div className="main-element">
           <ColorButton
             setCount={setCount} // Pass setCount to the button
-            buttonColor="blue"
             textColor="black"
           >
             Count is {count}

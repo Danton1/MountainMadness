@@ -23,8 +23,8 @@ export default function GameEnd({ exitFn }) {
 
   return (
     <div style={popupStyle}>
-      <h1 sx={{ mb: 12 }}>
-        Tamagotchi is <b>DEAD</b>
+      <h1 className="text-center text-2xl text-white bg-red-500 p-4">
+        💀 Your pet has died!
       </h1>
       <h2 style={{ margin: "12px 0" }}>
         Watch an ad to continue or{" "}

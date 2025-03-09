@@ -11,6 +11,10 @@ export default function Game() {
   function endOverlay(){
     setGameOver(false);
   }
+
+  function startOverlay(){
+    setGameOver(true);
+  }
   
   const [val, setVal] = useLocalStorage<GameState>(
     'game-state',
@@ -23,7 +27,7 @@ export default function Game() {
 
   return (
     <div>
-      <Display state={val} />
+      <Display gameEnd={startOverlay} state={val} />
       <Controls setState={setVal} />
       {gameOver && <GameEnd exitFn={endOverlay} />}
     </div>
