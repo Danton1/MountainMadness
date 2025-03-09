@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import PetTalks from './game-state/petTalks';
 
 import { GameState } from './game-state'
 
@@ -47,7 +48,7 @@ export function Display({ gameEnd }: Props) {
     <div className="checkered-background hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col">
         <div className="main-element">
-          <SpriteAnimation width={constantWidth} height={constantHeight} />
+          <SpriteAnimation width={constantWidth} height={constantHeight} insanity={insanityValue}  />
         </div>
 
         <Pet

@@ -1,6 +1,7 @@
 import superjson from 'superjson'
 import Pet from './Pet'
 import StateMachine from 'javascript-state-machine'
+import PetTalks from './petTalks'
 
 // Library doc: https://github.com/jakesgordon/javascript-state-machine?tab=readme-ov-file
 const fsm = new StateMachine({
@@ -8,6 +9,9 @@ const fsm = new StateMachine({
   transitions: [
     { name: 'ACTION_PET_FEED', from: 'PET_IDLE', to: 'PET_FEEDING' },
     { name: 'ACTION_PET_PLAY', from: 'PET_IDLE', to: 'PET_PLAYING' },
+    {name: 'HUNGER_DECREASE', from: '*', to: 'PET_TALKING'},
+    {name: 'INSANITY_INCREASE', from: '*', to: 'PET_CHANGING'},
+
   ],
   methods: {
     onFeed: () => {
@@ -16,6 +20,12 @@ const fsm = new StateMachine({
     onPlay: () => {
       /* TODO: do something when play is requested */
     },
+    onPetTalking: (hunger: number, happiness: number, sanity: number) => {
+      PetTalks({ hunger, happiness, sanity })
+    },
+    onPetChanging: (sanity: number) => {
+      PetTalks({ hunger: 0, happiness: 0, sanity })
+    }
   },
 })
 
