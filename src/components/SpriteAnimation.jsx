@@ -1,17 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
-export default function SpriteAnimation({ width, height }) {
+
+
+export default function SpriteAnimation({ width, height, insanity }) {
   const [gifSrc, setGifSrc] = useState(null)
 
   useEffect(() => {
     // Set the source of the local GIF in the public folder
-    setGifSrc('/pet-animations/idle.gif')
+    let gifPath = '/pet-animations/idle.gif';
+    if (insanity >= 25 && insanity < 50) {
+      gifPath = '/pet-animations/25.gif';
+    } else if (insanity >= 50 && insanity < 75) {
+      gifPath = '/pet-animations/50.gif';
+    } else if (insanity >= 75) {
+      gifPath = '/pet-animations/100.gif';
+    }
+    setGifSrc(gifPath);
 
     // Cleanup function
     return () => {
       setGifSrc(null)
     }
-  }, [])
+  }, [insanity])
 
   if (!gifSrc) return null // Don't render until GIF source is loaded
 
@@ -29,5 +39,5 @@ export default function SpriteAnimation({ width, height }) {
         }}
       />
     </div>
-  )
+  );
 }
