@@ -16,7 +16,7 @@
   background-position: 0 0;
 
   /* Maintain scrolling animation */
-  animation: scrollBackground 300s linear infinite;
+  animation: scrollBackground 100s linear infinite;
 }
 
 /* Adjust scrolling direction to match rotated background */
@@ -110,7 +110,13 @@
   left: 0;
   width: 100%;
   height: 33%; /* 1/3 of the viewport height */
-  background-color: #ffcccc; /* Adjust the color as needed */
+  background: linear-gradient(
+    to bottom,
+    rgb(240, 240, 240),
+    rgb(230, 230, 230)
+  );
+  border-bottom: 10px solid; /* Add border */
+  border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent) 1; /* Gradient for border */
   z-index: 1; /* Ensure it is above the scrolling background */
 }
 
@@ -120,6 +126,8 @@
   left: 0;
   width: 100%;
   height: 33%; /* 1/3 of the viewport height */
-  background-color: #ccffcc; /* Adjust the color as needed */
+  background: linear-gradient(to top, rgb(240, 240, 240), rgb(230, 230, 230));
+  border-top: 10px solid; /* Add border */
+  border-image: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent) 1; /* Gradient for border */
   z-index: 1; /* Ensure it is above the scrolling background */
 }
