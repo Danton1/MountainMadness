@@ -43,24 +43,6 @@ export const Display = observer(({ game }: Props) => {
         /> */}
 
         <div className="text-rose-900">
-          <StatusBar title="Hunger" value={hungerValue} />
-          <StatusBar title="Happiness" value={happinessValue} /* rate={50} */ />
-          <StatusBar
-            title="Insanity"
-            value={insanityValue}
-            // rate={2000}
-            // direction="up"
-          />
-        </div>
-
-        {/* <Pet
-          hunger={hungerValue}
-          happiness={happinessValue}
-          health={healthValue}
-          sanity={insanityValue}
-        /> */}
-
-        <div className="text-rose-900">
           <StatusBar title="Health" value={healthValue} />
           <StatusBar title="Hunger" value={hungerValue} />
           <StatusBar title="Happiness" value={happinessValue} />
