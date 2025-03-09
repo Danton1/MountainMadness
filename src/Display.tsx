@@ -4,6 +4,7 @@ import type { Game } from './game-state'
 import SpriteAnimation from './components/SpriteAnimation'
 import StatusBar from './components/StatusBar'
 import './display.css'
+import { useEffect } from 'react'
 
 interface Props {
   game: Game
@@ -12,11 +13,15 @@ interface Props {
 
 export const Display = observer(({ game, children }: Props) => {
   // Use the pet's properties from the MobX state
-  const { pet } = game
+  const { pet, currentDialogue, talkingActive } = game
   const hungerValue = pet.hunger
   const happinessValue = pet.happiness
   const healthValue = pet.health
   const insanityValue = pet.sanity
+
+  useEffect(() => {
+    game.triggerPetTalking()
+  }, [hungerValue, happinessValue, insanityValue])
 
   // Define the size you want to set for the GIF
   const constantWidth = 150
@@ -41,7 +46,6 @@ export const Display = observer(({ game, children }: Props) => {
             height={constantHeight}
             insanity={insanityValue}
             animationState={game.state}
-            insanity={insanityValue}
           />
         </div>
       </div>
