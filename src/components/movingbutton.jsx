@@ -34,7 +34,7 @@ export default function MovingButton({
     const distY = mouseY - btnCenterY;
     const distance = Math.sqrt(distX ** 2 + distY ** 2);
 
-    const threshold = 120; // Distance threshold for button movement
+    const threshold = 80; // Distance threshold for button movement
     if (distance < threshold) {
       const moveX = (distX / distance) * 5; // Move speed in X direction
       const moveY = (distY / distance) * 5; // Move speed in Y direction
@@ -61,17 +61,7 @@ export default function MovingButton({
     position: "relative",
     color: textColor, // Dynamically set the text color
     transform: `translate(${btnTranslate.x}px, ${btnTranslate.y}px)`, // Apply translation
-    transition: "transform 0.00001s", // Smooth transition for movement
-  };
-
-  const beforeStyles = {
-    content: '""',
-    position: "absolute",
-    zIndex: -1,
-    inset: "-1px",
-    marginInline: "auto",
-    background: "linear-gradient(hsl(240, 74%, 30%), hsl(0, 0%, 38%))",
-    borderRadius: "100vw",
+    transition: "transform 0s", // Smooth transition for movement
   };
 
   return (
@@ -81,7 +71,6 @@ export default function MovingButton({
       style={buttonStyles}
     >
       {children} {/* Render the custom text or content passed to the button */}
-      <span style={beforeStyles}></span>
     </button>
   );
 }
