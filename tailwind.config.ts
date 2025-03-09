@@ -6,11 +6,12 @@ const config = {
       keyframes: {
         floatAndFade: {
           '0%': {
-            transform: 'translateY(0) translateX(0)',
+            transform: 'translateY(0) translateX(-50%)',
             opacity: '1',
           },
           '100%': {
-            transform: 'translateY(-50px) translateX(var(--random-x))',
+            transform:
+              'translateY(-100px) translateX(calc(-50% + var(--random-x)))',
             opacity: '0',
           },
         },

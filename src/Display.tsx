@@ -25,6 +25,8 @@ export const Display = observer(({ game }: Props) => {
 
   return (
     <div className="checkered-background hero bg-base-200 min-h-screen flex flex-col">
+      <div className="top-colored-section"></div>{' '}
+      {/* Add top colored section */}
       <div className="hero-content flex-col flex-grow">
         <div className="pet-status-container">
           <div className="pet-container">
@@ -75,6 +77,8 @@ export const Display = observer(({ game }: Props) => {
           </div>
         </div>
       </div>
+      <div className="bottom-colored-section"></div>{' '}
+      {/* Add bottom colored section */}
     </div>
   )
 })
