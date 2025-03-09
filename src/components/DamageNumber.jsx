@@ -13,7 +13,7 @@ export default function DamageNumber({
 
   const darkColor = baseColor
     .split(',')
-    .map((c) => Math.max(0, Number(c) - 100))
+    .map((c) => Math.max(0, Number(c) - 30))
     .join(',')
 
   return (

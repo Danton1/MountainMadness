@@ -1,4 +1,3 @@
-import DamageNumber from './DamageNumber' // Import the DamageNumber component
 import './floatAndFade.css' // Import the CSS file
 
 export default function ColorButton({
