@@ -36,7 +36,7 @@ export function Display({ gameEnd }: Props) {
     if (insanityValue < 100) {
       setTimeout(() => {
         setInsanityValue(insanityValue + 1)
-      }, 2500)
+      }, 200)
     }
   }, [hungerValue, happinessValue, insanityValue])
 
