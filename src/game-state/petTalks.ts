@@ -25,11 +25,15 @@ export default function PetTalks({ hunger, happiness, sanity }: PetTalksProps) {
 
   const knock = () => {
     let random = Math.floor(Math.random() * 7) + 1
+    const audio = new Audio('/audio/knocking_door.mp3')
+    audio.play()
     return Door[random.toString() as keyof typeof Door]
   }
 
   const laugh = () => {
     let random = Math.floor(Math.random() * 7) + 1
+    const audio = new Audio('/audio/laugh.mp3')
+    audio.play()
     return CatLaughs[random.toString() as keyof typeof CatLaughs]
   }
 
@@ -71,5 +75,5 @@ export default function PetTalks({ hunger, happiness, sanity }: PetTalksProps) {
     }
   }
 
-  handleCatState(sanity)
+  return handleCatState(sanity)
 }
