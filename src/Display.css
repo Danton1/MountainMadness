@@ -1,0 +1,30 @@
+.checkered-background {
+  width: 100%;
+  height: 100%;
+
+  /* Rotate the checkered pattern by shifting the angles */
+  background-image: conic-gradient(
+    from 45deg,
+    /* Softer light pink and light green */ #f8d7da 90deg,
+    /* Soft Rose */ #d4edda 90deg 180deg,
+    /* Mint Mist */ #f8d7da 180deg 270deg,
+    #d4edda 270deg 360deg
+  );
+
+  background-size: 14vw 14vw !important; /* Adjust for diagonal pattern */
+  background-repeat: repeat;
+  background-position: 0 0;
+
+  /* Maintain scrolling animation */
+  animation: scrollBackground 300s linear infinite;
+}
+
+/* Adjust scrolling direction to match rotated background */
+@keyframes scrollBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100vw 80vh; /* Adjusted for rotated effect */
+  }
+}

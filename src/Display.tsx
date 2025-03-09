@@ -6,6 +6,7 @@ import ColorButton from './components/colorbutton'
 import SpriteAnimation from './components/SpriteAnimation'
 import StatusBar from './components/StatusBar'
 import Pet from './components/Pet'
+import './display.css'; 
 
 interface Props {
   state: GameState
@@ -19,6 +20,7 @@ export function Display({ gameEnd }: Props) {
   const [hungerValue, setHungerValue] = useState(100)
   const [happinessValue, setHappinessValue] = useState(100)
   const [insanityValue, setInsanityValue] = useState(0)
+  
   useEffect(() => {
     if (hungerValue > 0) {
       setTimeout(() => {
@@ -42,7 +44,7 @@ export function Display({ gameEnd }: Props) {
   const constantHeight = 150
 
   return (
-    <div className={`hero bg-base-200 min-h-screen bg-purple-100`}>
+    <div className="checkered-background hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col">
         <div className="main-element">
           <SpriteAnimation width={constantWidth} height={constantHeight} />
