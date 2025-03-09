@@ -36,9 +36,12 @@ const GameComponent = observer(() => {
   )
 
   return (
-    <div>
-      {!gameState.isGameOver && <Display game={gameState} />}
-      {!gameState.isGameOver && <Controls gameState={gameState} />}
+    <div className="h-full w-full">
+      {!gameState.isGameOver && (
+        <Display game={gameState}>
+          <Controls gameState={gameState} />
+        </Display>
+      )}
       {gameState.isGameOver && <GameEnd exitFn={handleEndOverlay} />}
     </div>
   )

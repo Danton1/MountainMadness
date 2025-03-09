@@ -5,7 +5,7 @@ export default function SpriteAnimation({ width, height }) {
 
   useEffect(() => {
     // Set the source of the local GIF in the public folder
-    setGifSrc('/pet-animations/idle.gif')
+    setGifSrc('/pet-animations/eating.gif')
 
     // Cleanup function
     return () => {
