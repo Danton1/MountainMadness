@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 export default function MovingButton({
   setCount,
-  buttonColor = "blue",
   textColor = "#333333",
   children,
   clickFn = () => setCount((prevCount) => prevCount + 1),
@@ -34,10 +33,10 @@ export default function MovingButton({
     const distY = mouseY - btnCenterY;
     const distance = Math.sqrt(distX ** 2 + distY ** 2);
 
-    const threshold = 80; // Distance threshold for button movement
+    const threshold = 140; // Distance threshold for button movement
     if (distance < threshold) {
-      const moveX = (distX / distance) * 5; // Move speed in X direction
-      const moveY = (distY / distance) * 5; // Move speed in Y direction
+      const moveX = (distX / distance) * 7; // Move speed in X direction
+      const moveY = (distY / distance) * 7; // Move speed in Y direction
 
       setBtnTranslate((prev) => ({
         x: prev.x - moveX,
@@ -47,19 +46,27 @@ export default function MovingButton({
   }, [mouseX, mouseY]);
 
   const buttonStyles = {
-    backgroundImage: `linear-gradient(hsl(0 0% 100% / 0.85), transparent 10px),
-      linear-gradient(hsl(0 0% 100% / 0.25) 10px, transparent 10px),
-      radial-gradient(circle at 10px 5px, hsl(0 0% 100% / 0.25) 5px, transparent 5px),
-      radial-gradient(circle at 0px 5px, hsl(0 0% 100% / 0.25) 5px, transparent 5px),
-      linear-gradient(${buttonColor}, hsl(181, 95%, 92%))`, // Use the passed button color
-    padding: "0.5em 3em",
-    backgroundSize: "100%, calc(100% - 20px), 10px 10px, 10px 10px, 100%",
-    backgroundPosition: "top, top center, top left, top right, center",
-    backgroundRepeat: "no-repeat",
-    border: "0",
-    borderRadius: "100vw",
-    position: "relative",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    lineHeight: '1',
+    textDecoration: 'none',
     color: textColor, // Dynamically set the text color
+    fontSize: '18px',
+    fontWeight: 'bold',
+    borderRadius: '20px',
+    width: '175px', // Adjust width on hover
+    height: '50px', // Adjust height on hover
+    boxShadow: '0px 0px 0px 7px rgba(255, 0, 0, 0.58)', // Adjust box-shadow on hover
+    backgroundColor: 'transparent', // Transparent background to work with gradient
+    backgroundImage: `linear-gradient(180deg, rgba(255, 0, 0, 0.55) 58%, rgba(255, 125, 0, 0.55)), 
+                      linear-gradient(#FF8C00,rgb(255, 0, 0))`, // Predefined gradient colors (no custom color)
+    backgroundSize: '100%, 100%',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    border: '0',
+    cursor: 'pointer',
+    position: 'relative',
     transform: `translate(${btnTranslate.x}px, ${btnTranslate.y}px)`, // Apply translation
     transition: "transform 0s", // Smooth transition for movement
   };
