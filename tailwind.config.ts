@@ -18,6 +18,14 @@ const config = {
       animation: {
         floatAndFade: 'floatAndFade 1.5s ease-out forwards',
       },
+      scale: {
+        '102': '1.02',
+      },
+      colors: {
+        'base-color': 'rgb(var(--base-color))',
+        'base-color-dark': 'rgb(var(--base-color-dark))',
+        'base-color-shadow': 'rgb(var(--base-color-shadow))',
+      },
     },
   },
 } satisfies Config

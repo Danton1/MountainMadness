@@ -37,6 +37,7 @@ export const Display = observer(({ game }: Props) => {
         <div className="button-scroll-container">
           <div className="button-container">
             <ColorButton
+              baseColor="250, 160, 160"
               setCount={setCount} // Pass setCount to the button
               textColor="black"
               isFirst={true} // Mark the first button
@@ -44,12 +45,14 @@ export const Display = observer(({ game }: Props) => {
               Feed
             </ColorButton>
             <ColorButton
+              baseColor="255, 213, 128"
               setCount={setCount} // Pass setCount to the button
               textColor="black"
             >
               Play
             </ColorButton>
             <ColorButton
+              baseColor="144, 238, 144"
               setCount={setCount} // Pass setCount to the button
               textColor="black"
               isLast={true} // Mark the last button
