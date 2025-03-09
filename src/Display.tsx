@@ -28,6 +28,7 @@ export const Display = observer(({ game }: Props) => {
       <div className="hero-content flex-col">
         <div className="pet-status-container">
           <div className="pet-container">
+            <div className="pet-shadow"></div> {/* Add shadow */}
             <div className="main-element">
               <SpriteAnimation width={constantWidth} height={constantHeight} />
             </div>

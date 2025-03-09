@@ -41,6 +41,22 @@
 .pet-container {
   display: flex;
   justify-content: center;
+  position: relative; /* Add relative positioning */
+}
+
+.pet-shadow {
+  position: absolute;
+  width: 110px; /* Adjust size as needed */
+  height: 32px; /* Adjust size as needed */
+  background-color: rgba(0, 0, 0, 0.5); /* Dark circle color */
+  border-radius: 50%; /* Make it an ellipse */
+  bottom: -10px; /* Position it slightly below the bottom */
+  left: -1px; /* Move it to the left */
+  z-index: 0; /* Ensure it is behind the pet */
+}
+
+.main-element {
+  z-index: 1; /* Ensure it is above the shadow */
 }
 
 .status-bars {
