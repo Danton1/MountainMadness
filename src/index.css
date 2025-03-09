@@ -1,8 +1,15 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@font-face {
+  font-family: 'FairyMuffin';
+  src: url('/fonts/Fairymuffinroundpop-1GG5e.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'FairyMuffin', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -76,3 +83,4 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
