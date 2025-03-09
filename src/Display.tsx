@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
 import type { Game } from './game-state'
 
@@ -13,11 +13,15 @@ interface Props {
 
 export const Display = observer(({ game }: Props) => {
   // Use the pet's properties from the MobX state
-  const { pet } = game
+  const { pet, currentDialogue, talkingActive } = game
   const hungerValue = pet.hunger
   const happinessValue = pet.happiness
   const healthValue = pet.health
   const insanityValue = pet.sanity
+
+  useEffect(() => {
+    game.triggerPetTalking()
+  }, [hungerValue, happinessValue, insanityValue])
 
   // Define the size you want to set for the GIF
   const constantWidth = 150
@@ -27,13 +31,17 @@ export const Display = observer(({ game }: Props) => {
     <div className="checkered-background hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col">
         <div className="main-element">
-          <SpriteAnimation
-            width={constantWidth}
-            height={constantHeight}
-            insanity={insanityValue}
-            animationState={game.state}
-            insanity={insanityValue}
-          />
+          <div
+            className={`tooltip ${talkingActive ? 'tooltip-open' : ''}`}
+            data-tip={currentDialogue}
+          >
+            <SpriteAnimation
+              width={constantWidth}
+              height={constantHeight}
+              insanity={insanityValue}
+              animationState={game.state}
+            />
+          </div>
         </div>
 
         {/* <Pet
