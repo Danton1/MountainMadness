@@ -17,59 +17,63 @@ interface PetTalksProps {
   sanity: number
 }
 
-export default function PetTalks({ hunger, happiness, sanity }: PetTalksProps) {
-  const cannibal = () => {
+export default function PetTalks({
+  hunger,
+  happiness,
+  sanity,
+}: PetTalksProps): string {
+  const cannibal = (): string => {
     let random = Math.floor(Math.random() * 7) + 1
-    console.log(CannibalCat[random.toString() as keyof typeof CannibalCat])
+    return CannibalCat[random.toString() as keyof typeof CannibalCat]
   }
 
-  const knock = () => {
+  const knock = (): string => {
     let random = Math.floor(Math.random() * 7) + 1
-    console.log(Door[random.toString() as keyof typeof Door])
+    return Door[random.toString() as keyof typeof Door]
   }
 
-  const laugh = () => {
+  const laugh = (): string => {
     let random = Math.floor(Math.random() * 7) + 1
-    console.log(CatLaughs[random.toString() as keyof typeof CatLaughs])
+    return CatLaughs[random.toString() as keyof typeof CatLaughs]
   }
 
-  const saneCat = () => {
+  const saneCat = (): string => {
     let random = Math.floor(Math.random() * 7) + 1
-    console.log(SaneCat[random.toString() as keyof typeof SaneCat])
+    return SaneCat[random.toString() as keyof typeof SaneCat]
   }
 
-  const insaneCat = (sanity: number) => {
+  const insaneCat = (sanity: number): string => {
     let random = Math.floor(Math.random() * 7) + 1
     if (sanity === 25) {
-      console.log(CrazyCat25[random.toString() as keyof typeof CrazyCat25])
+      return CrazyCat25[random.toString() as keyof typeof CrazyCat25]
     } else if (sanity === 50) {
-      console.log(CrazyCat50[random.toString() as keyof typeof CrazyCat50])
+      return CrazyCat50[random.toString() as keyof typeof CrazyCat50]
     } else {
-      console.log(CrazyCat100[random.toString() as keyof typeof CrazyCat100])
+      return CrazyCat100[random.toString() as keyof typeof CrazyCat100]
     }
   }
 
-  const handleCatState = (sanity: number) => {
+  const handleCatState = (sanity: number): string => {
     let random = Math.floor(Math.random() * 10)
     if (hunger >= 50 && sanity >= 50 && happiness >= 50) {
-      cannibal()
+      return cannibal()
     } else if (random >= 7 && sanity >= 50) {
       random = Math.floor(Math.random() * 10)
       if (random >= 5) {
-        knock()
+        return knock()
       } else {
-        laugh()
+        return laugh()
       }
     } else if (sanity < 25) {
-      saneCat()
+      return saneCat()
     } else if (sanity < 50) {
-      insaneCat(25)
+      return insaneCat(25)
     } else if (sanity < 75) {
-      insaneCat(50)
+      return insaneCat(50)
     } else {
-      insaneCat(100)
+      return insaneCat(100)
     }
   }
 
-  handleCatState(sanity)
+  return handleCatState(sanity)
 }

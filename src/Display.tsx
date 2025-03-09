@@ -33,6 +33,10 @@ export const Display = observer(({ game, children }: Props) => {
       <div className="flex-auto flex items-center justify-center checkered-background">
         <div className="relative">
           <div className="pet-shadow absolute"></div> {/* Add shadow */}
+          {/* Speech bubble popover */}
+          {game.talkingActive && (
+            <div className="speech-bubble">{game.currentDialogue}</div>
+          )}
           <SpriteAnimation
             width={constantWidth}
             height={constantHeight}
