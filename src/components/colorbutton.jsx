@@ -1,8 +1,9 @@
-export default function ColorButton({
+export default function ColorButton ({
   setCount,
   buttonColor = 'blue',
   textColor = '#333333',
   children,
+  clickFn = () => setCount((prevCount) => prevCount + 1),
 }) {
   const buttonStyles = {
     backgroundImage: `linear-gradient(hsl(0 0% 100% / 0.85), transparent 10px),
@@ -32,7 +33,7 @@ export default function ColorButton({
 
   return (
     <button
-      onClick={() => setCount((prevCount) => prevCount + 1)} // Update count when button is clicked
+      onClick={clickFn} // Update count when button is clicked
       style={buttonStyles}
     >
       {children} {/* Render the custom text or content passed to the button */}

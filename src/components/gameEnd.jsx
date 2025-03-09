@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import ColorButton from "./colorbutton";
+import MovingButton from "./movingbutton";
 
-export default function GameEnd({exitFn}) {
-  const [mouseX, setMouseX] = useState(0);
-  const [mouseY, setMouseY] = useState(0);
-  const [btnTranslate, setBtnTranslate] = useState({ x: 0, y: 0 }); // Use translate for position
+export default function GameEnd({ exitFn }) {
   const [video, setVideo] = useState(false);
 
   function exit() {
@@ -19,49 +18,19 @@ export default function GameEnd({exitFn}) {
     backgroundColor: "#242424",
     border: "1px solid white",
     borderRadius: "20px",
-    padding: "20px"
+    padding: "20px",
   };
-
-  useEffect(() => {
-    const handleMouseMove = (event) => {
-      setMouseX(event.clientX);
-      setMouseY(event.clientY);
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  useEffect(() => {
-    const button = document.getElementById("exit-btn");
-    if (!button) return;
-
-    const btnRect = button.getBoundingClientRect();
-    const btnCenterX = btnRect.left + btnRect.width / 2;
-    const btnCenterY = btnRect.top + btnRect.height / 2;
-
-    const distX = mouseX - btnCenterX;
-    const distY = mouseY - btnCenterY;
-    const distance = Math.sqrt(distX ** 2 + distY ** 2);
-
-    const threshold = 80;
-    if (distance < threshold) {
-      const moveX = (distX / distance) * 5;
-      const moveY = (distY / distance) * 5;
-
-      setBtnTranslate((prev) => ({
-        x: prev.x - moveX,
-        y: prev.y - moveY,
-      }));
-    }
-  }, [mouseX, mouseY]);
 
   return (
     <div style={popupStyle}>
-      <h1 sx={{mb: 12}}>
+      <h1 sx={{ mb: 12 }}>
         Tamagotchi is <b>DEAD</b>
       </h1>
-      <h2 style={{margin: '12px 0'}}>
-        Watch an ad to continue or <span onClick={exit} style={{cursor: 'pointer'}}>exit here</span>
+      <h2 style={{ margin: "12px 0" }}>
+        Watch an ad to continue or{" "}
+        <span onClick={exit} style={{ cursor: "pointer" }}>
+          exit here
+        </span>
       </h2>
       <div
         style={{
@@ -71,18 +40,8 @@ export default function GameEnd({exitFn}) {
           gap: "15px",
         }}
       >
-        <button onClick={()=>{setVideo(true)}}>Watch AD to revive</button>
-        <button
-          id="exit-btn"
-          style={{
-            position: "relative",
-            transform: `translate(${btnTranslate.x}px, ${btnTranslate.y}px)`, // Apply translate
-            transition: "transform 0.2s", // Transition the transform
-          }}
-          onClick={exit}
-        >
-          Exit
-        </button>
+        <ColorButton clickFn={() => setVideo(true)}>Watch AD to revive</ColorButton>
+        <MovingButton clickFn={exit}>Exit</MovingButton> {/* Use MovingButton for the exit button */}
       </div>
       {video && (
         <video autoPlay onEnded={exit} style={{ marginTop: "20px", width: "100%", maxWidth: "600px" }}>
