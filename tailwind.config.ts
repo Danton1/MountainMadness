@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config = {
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       keyframes: {
@@ -22,10 +23,8 @@ const config = {
       scale: {
         '102': '1.02',
       },
-      colors: {
-        'base-color': 'rgb(var(--base-color))',
-        'base-color-dark': 'rgb(var(--base-color-dark))',
-        'base-color-shadow': 'rgb(var(--base-color-shadow))',
+      boxShadow: {
+        button: '1px 1px 4px rgba(0, 0, 0, 1)',
       },
     },
   },

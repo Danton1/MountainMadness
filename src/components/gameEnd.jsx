@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ColorButton from './colorbutton'
+import ColorButton from './ColorButton'
 import MovingButton from './movingbutton'
 
 export default function GameEnd({ exitFn }) {

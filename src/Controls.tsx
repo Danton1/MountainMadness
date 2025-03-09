@@ -1,5 +1,5 @@
 import type { Game, GAME_STATE } from './game-state'
-import ColorButton from './components/colorbutton'
+import ColorButton from './components/ColorButton'
 import { observer } from 'mobx-react'
 
 interface ActionMenuProps {
@@ -8,11 +8,29 @@ interface ActionMenuProps {
 
 function ActionMenu({ gameState }: ActionMenuProps) {
   return (
-    <ul>
-      <ColorButton onClick={() => gameState.feedPet()}>Feed</ColorButton>
-      <ColorButton onClick={() => gameState.playWithPet()}>Play</ColorButton>
-      <ColorButton onClick={() => gameState.cleanPet()}>Clean</ColorButton>
-    </ul>
+    <div className="flex nowrap gap-[30px] items-center justify-center min-h-[100px] overflow-x-auto relative">
+      <ColorButton
+        onClick={() => gameState.feedPet()}
+        className="shadow-red-500/50 bg-radial-[at_50%_75%] from-red-500 to-red-500/50"
+        textColor="white"
+      >
+        Feed
+      </ColorButton>
+      <ColorButton
+        onClick={() => gameState.playWithPet()}
+        className="shadow-yellow-600/50 bg-radial-[at_50%_75%] from-yellow-600 to-yellow-600/50"
+        textColor="white"
+      >
+        Play
+      </ColorButton>
+      <ColorButton
+        onClick={() => gameState.cleanPet()}
+        className="shadow-green-400/50 bg-radial-[at_50%_75%] from-green-400 to-green-400/50"
+        textColor="white"
+      >
+        Clean
+      </ColorButton>
+    </div>
   )
 }
 
