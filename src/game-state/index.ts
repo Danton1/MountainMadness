@@ -1,8 +1,10 @@
-import { action, observable, makeObservable, computed } from 'mobx'
+import { action, observable, computed, autorun } from 'mobx'
 import superjson, { SuperJSON } from 'superjson'
 
 import Pet from './Pet'
+import PetTalks from './petTalks'
 import type { InventoryItem } from './InventoryItem'
+import { TimerManager, type StatName } from './timers'
 
 enum GAME_STATE {
   PET_IDLE = 'PET_IDLE',
@@ -10,32 +12,47 @@ enum GAME_STATE {
   PET_PLAYING = 'PET_PLAYING',
   PET_CLEANING = 'PET_CLEANING',
   PET_TALKING = 'PET_TALKING',
+  PET_CHANGING = 'PET_CHANGING',
   PET_RESULT = 'PET_RESULT',
 }
 
-type IntervalToken = ReturnType<typeof setInterval> | null
-
 export class GameState {
-  accessor #pet: Pet = new Pet()
+  @observable accessor pet: Pet = new Pet()
   @observable accessor #inventory: Map<string, InventoryItem> = new Map()
   @observable accessor #state: GAME_STATE = GAME_STATE.PET_IDLE
   @observable accessor isAnimating: boolean = false
   @observable accessor isGameOver: boolean = false
+  @observable accessor currentDialogue: string = ''
+  @observable accessor talkingActive: boolean = false
 
-  // Interval timers
-  #hungerInterval: IntervalToken = null
-  #happinessInterval: IntervalToken = null
-  #healthInterval: IntervalToken = null
-  #sanityInterval: IntervalToken = null
+  // Timer manager
+  #timerManager: TimerManager
+  #gameOverDisposer: () => void
 
   constructor() {
-    makeObservable(this)
+    // Initialize timer manager
+    this.#timerManager = new TimerManager({
+      onStatModify: this.modifyStat.bind(this),
+      onTriggerTalking: this.triggerPetTalking.bind(this),
+      getState: () => this.state,
+      isAnimating: () => this.isAnimating,
+      pet: () => this.pet,
+    })
+
+    // Set up autorun to check game over conditions
+    this.#gameOverDisposer = autorun(() => {
+      const { hunger, happiness, health, sanity } = this.pet
+
+      if (health <= 0 || hunger <= 0 || happiness <= 0 || sanity >= 100) {
+        if (!this.isGameOver) {
+          this.isGameOver = true
+          this.stopTimers()
+        }
+      }
+    })
+
     // Start timers when game state is created
     this.startTimers()
-  }
-
-  get pet() {
-    return this.#pet
   }
 
   get state() {
@@ -47,180 +64,159 @@ export class GameState {
   }
 
   @action
-  checkGameOver() {
-    if (
-      this.#pet.health <= 0 ||
-      this.#pet.hunger <= 0 ||
-      this.#pet.happiness <= 0 ||
-      this.#pet.sanity >= 100
-    ) {
-      this.isGameOver = true
-      this.stopTimers() // Stop timers when game is over
-      return true
-    }
-    return false
-  }
-
-  @action
   resurrectPet(fullResurrection: boolean) {
     if (fullResurrection) {
       // Full resurrection from ad
-      this.#pet.health = 100
-      this.#pet.hunger = 100
-      this.#pet.happiness = 100
-      this.#pet.sanity = 0
+      this.pet.health = 100
+      this.pet.hunger = 100
+      this.pet.happiness = 100
+      this.pet.sanity = 0
     } else {
       // Just a new game
-      this.#pet = new Pet()
+      this.pet = new Pet()
     }
+
     this.isGameOver = false
     this.#state = GAME_STATE.PET_IDLE
-
-    // Restart timers after resurrection
     this.startTimers()
+  }
+
+  // Generic stat modifier to replace multiple increase/decrease methods
+  @action
+  modifyStat(stat: StatName, amount: number) {
+    if (stat === 'sanity' && amount < 0) {
+      // Decreasing sanity
+      const oldValue = this.pet[stat]
+      this.pet[stat] += amount
+      return oldValue
+    } else {
+      this.pet[stat] += amount
+      return this.pet[stat]
+    }
   }
 
   @action
   startTimers() {
-    // Clear any existing timers first
-    this.stopTimers()
-
-    // Only start timers when the game is not over
-    if (!this.isGameOver) {
-      // Hunger decreases every 1 second
-      this.#hungerInterval = setInterval(() => {
-        if (
-          this.state === GAME_STATE.PET_IDLE &&
-          !this.isAnimating &&
-          this.#pet.hunger > 0
-        ) {
-          this.#pet.hunger -= 1
-          this.checkGameOver()
-        }
-      }, 1000)
-
-      // Happiness decreases every 1.5 seconds
-      this.#happinessInterval = setInterval(() => {
-        if (
-          this.state === GAME_STATE.PET_IDLE &&
-          !this.isAnimating &&
-          this.#pet.happiness > 0
-        ) {
-          this.#pet.happiness -= 1
-          this.checkGameOver()
-        }
-      }, 1500)
-
-      // Health decreases when hunger or happiness are low
-      this.#healthInterval = setInterval(() => {
-        if (
-          this.state === GAME_STATE.PET_IDLE &&
-          !this.isAnimating &&
-          this.#pet.health > 0
-        ) {
-          if (this.#pet.hunger <= 20 || this.#pet.happiness <= 20) {
-            this.#pet.health -= 1
-            this.checkGameOver()
-          }
-        }
-      }, 2000)
-
-      // Sanity increases every 2.5 seconds
-      this.#sanityInterval = setInterval(() => {
-        if (
-          this.state === GAME_STATE.PET_IDLE &&
-          !this.isAnimating &&
-          this.#pet.sanity < 100
-        ) {
-          this.#pet.sanity += 1
-          this.checkGameOver()
-        }
-      }, 2500)
-    }
+    if (this.isGameOver) return
+    this.#timerManager.startTimers()
   }
 
   @action
   stopTimers() {
-    // Clear all interval timers
-    if (this.#hungerInterval) {
-      clearInterval(this.#hungerInterval)
-      this.#hungerInterval = null
+    this.#timerManager.stopTimers()
+  }
+
+  @action
+  async showDialogue(state: GAME_STATE, isChanging = false, duration = 4000) {
+    const previousState = this.#state
+
+    // Update state
+    this.#state = state
+    this.talkingActive = true
+
+    // Get dialogue
+    this.currentDialogue = PetTalks({
+      hunger: isChanging ? 0 : this.pet.hunger,
+      happiness: isChanging ? 0 : this.pet.happiness,
+      sanity: this.pet.sanity,
+    })
+
+    // Wait for dialogue duration
+    await new Promise((resolve) => setTimeout(resolve, duration))
+
+    // Return to previous or idle state
+    this.#state =
+      state === GAME_STATE.PET_CHANGING ? GAME_STATE.PET_IDLE : previousState
+    this.talkingActive = false
+    this.currentDialogue = ''
+  }
+
+  @action
+  async triggerPetTalking() {
+    await this.showDialogue(GAME_STATE.PET_TALKING)
+  }
+
+  @action
+  async triggerPetChanging() {
+    await this.showDialogue(GAME_STATE.PET_CHANGING, true)
+  }
+
+  @action
+  async performAction(
+    actionState: GAME_STATE,
+    statChanges: [StatName, number][],
+    talkChance = 0.2,
+  ) {
+    if (this.isGameOver) return
+
+    this.#state = actionState
+    this.isAnimating = true
+    this.stopTimers()
+
+    await this.runAnimation()
+
+    let oldSanity: number | null = null
+
+    // Apply all stat changes
+    statChanges.forEach(([stat, amount]) => {
+      if (stat === 'sanity' && amount < 0) {
+        oldSanity = this.modifyStat(stat, amount)
+      } else {
+        this.modifyStat(stat, amount)
+      }
+    })
+
+    // Check for special sanity thresholds
+    if (oldSanity !== null) {
+      const newSanity = this.pet.sanity
+      if (
+        (oldSanity >= 25 && newSanity < 25) ||
+        (oldSanity >= 50 && newSanity < 50) ||
+        (oldSanity >= 75 && newSanity < 75)
+      ) {
+        await this.triggerPetChanging()
+      } else if (Math.random() < talkChance) {
+        await this.triggerPetTalking()
+      }
+    } else if (Math.random() < talkChance) {
+      await this.triggerPetTalking()
     }
-    if (this.#happinessInterval) {
-      clearInterval(this.#happinessInterval)
-      this.#happinessInterval = null
-    }
-    if (this.#healthInterval) {
-      clearInterval(this.#healthInterval)
-      this.#healthInterval = null
-    }
-    if (this.#sanityInterval) {
-      clearInterval(this.#sanityInterval)
-      this.#sanityInterval = null
-    }
+
+    this.completeAction()
   }
 
   @action
   async feedPet() {
-    if (this.isGameOver || this.checkGameOver()) return
-
-    this.#state = GAME_STATE.PET_FEEDING
-    this.isAnimating = true
-    this.stopTimers() // Pause timers during animation
-
-    // Simulate animation with timeout
-    await this.runAnimation()
-    this.#pet.hunger += 20
-    this.completeAction()
+    await this.performAction(GAME_STATE.PET_FEEDING, [['hunger', 20]], 0.2)
   }
 
   @action
   async playWithPet() {
-    if (this.isGameOver || this.checkGameOver()) return
-
-    this.#state = GAME_STATE.PET_PLAYING
-    this.isAnimating = true
-    this.stopTimers() // Pause timers during animation
-
-    await this.runAnimation()
-    this.#pet.happiness += 20
-    this.completeAction()
+    await this.performAction(GAME_STATE.PET_PLAYING, [['happiness', 20]], 0.3)
   }
 
   @action
   async cleanPet() {
-    if (this.isGameOver || this.checkGameOver()) return
-
-    this.#state = GAME_STATE.PET_CLEANING
-    this.isAnimating = true
-    this.stopTimers() // Pause timers during animation
-
-    await this.runAnimation()
-    this.#pet.sanity -= 20
-    this.completeAction()
+    await this.performAction(GAME_STATE.PET_CLEANING, [['sanity', -20]], 0.2)
   }
 
   @action
   private completeAction() {
     this.#state = GAME_STATE.PET_IDLE
     this.isAnimating = false
-    this.checkGameOver()
 
-    // Restart timers after action completes
     if (!this.isGameOver) {
       this.startTimers()
     }
   }
 
-  // Simulate an animation with a promise
   private runAnimation(): Promise<void> {
-    // Simulate animation time (e.g., 2 seconds)
     return new Promise((resolve) => setTimeout(resolve, 2000))
   }
 
-  @action
-  transitionState(newState: GAME_STATE) {
-    this.#state = newState
+  dispose() {
+    this.#timerManager.dispose()
+    this.#gameOverDisposer()
   }
 }
 

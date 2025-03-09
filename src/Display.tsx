@@ -1,12 +1,10 @@
-import { useState } from 'react'
 import { observer } from 'mobx-react'
 import type { Game } from './game-state'
 
 import SpriteAnimation from './components/SpriteAnimation'
 import StatusBar from './components/StatusBar'
-import ColorButton from './components/ColorButton'
 import './display.css'
-import { Controls } from './Controls'
+import { useEffect } from 'react'
 
 interface Props {
   game: Game
@@ -15,11 +13,15 @@ interface Props {
 
 export const Display = observer(({ game, children }: Props) => {
   // Use the pet's properties from the MobX state
-  const { pet } = game
+  const { pet, currentDialogue, talkingActive } = game
   const hungerValue = pet.hunger
   const happinessValue = pet.happiness
   const healthValue = pet.health
   const insanityValue = pet.sanity
+
+  useEffect(() => {
+    game.triggerPetTalking()
+  }, [hungerValue, happinessValue, insanityValue])
 
   // Define the size you want to set for the GIF
   const constantWidth = 150
@@ -35,13 +37,19 @@ export const Display = observer(({ game, children }: Props) => {
       <div className="flex-auto flex items-center justify-center checkered-background">
         <div className="relative">
           <div className="pet-shadow absolute"></div> {/* Add shadow */}
-          <SpriteAnimation width={constantWidth} height={constantHeight} />
+          {/* Speech bubble popover */}
+          {game.talkingActive && (
+            <div className="speech-bubble">{game.currentDialogue}</div>
+          )}
+          <SpriteAnimation
+            width={constantWidth}
+            height={constantHeight}
+            insanity={insanityValue}
+            animationState={game.state}
+          />
         </div>
       </div>
-      <div className="flex-auto bottom-colored-section">
-        {/* <Controls game={game} /> */}
-        {children}
-      </div>
+      <div className="flex-auto bottom-colored-section">{children}</div>
     </div>
     // <div className="checkered-background hero bg-base-200 flex flex-col">
     // <div/>

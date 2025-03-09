@@ -1,17 +1,47 @@
 import React, { useState, useEffect } from 'react'
 
-export default function SpriteAnimation({ width, height }) {
+export default function SpriteAnimation({
+  width,
+  height,
+  insanity,
+  animationState,
+}) {
   const [gifSrc, setGifSrc] = useState(null)
 
   useEffect(() => {
-    // Set the source of the local GIF in the public folder
-    setGifSrc('/pet-animations/eating.gif')
+    // Set the source based on animation state and insanity level
+    let gifPath = '/pet-animations/idle.gif'
+
+    // Handle different animation states
+    if (animationState === 'PET_FEEDING') {
+      gifPath = '/pet-animations/eating.gif'
+    } else if (animationState === 'PET_PLAYING') {
+      gifPath = '/pet-animations/dance.gif'
+    } else if (animationState === 'PET_CLEANING') {
+      // TODO
+      // gifPath = '/pet-animations/cleaning.gif'
+    } else if (
+      animationState === 'PET_TALKING' ||
+      animationState === 'PET_CHANGING'
+    ) {
+      gifPath = '/pet-animations/talking.gif'
+    } else {
+      // Default idle state varies by insanity level
+      if (insanity >= 25 && insanity < 50) {
+        gifPath = '/pet-animations/25.gif'
+      } else if (insanity >= 50 && insanity < 75) {
+        gifPath = '/pet-animations/50.gif'
+      } else if (insanity >= 75) {
+        gifPath = '/pet-animations/100.gif'
+      }
+    }
+    setGifSrc(gifPath)
 
     // Cleanup function
     return () => {
       setGifSrc(null)
     }
-  }, [])
+  }, [insanity, animationState])
 
   if (!gifSrc) return null // Don't render until GIF source is loaded
 
