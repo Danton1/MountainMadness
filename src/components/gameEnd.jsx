@@ -7,7 +7,6 @@ export default function GameEnd({exitFn}) {
   const [video, setVideo] = useState(false);
 
   function exit() {
-    console.log("here");
     exitFn();
   }
 
