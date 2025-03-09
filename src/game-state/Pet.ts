@@ -2,10 +2,10 @@ import superjson, { SuperJSON } from 'superjson'
 import { makeObservable, observable, action } from 'mobx'
 
 export default class Pet {
-  @observable #hunger: number
-  @observable #happiness: number
-  @observable #health: number
-  @observable #sanity: number
+  @observable accessor #hunger: number
+  @observable accessor #happiness: number
+  @observable accessor #health: number
+  @observable accessor #sanity: number
 
   // Create a `GameState` object with default values
   constructor() {
@@ -17,22 +17,6 @@ export default class Pet {
   }
 
   isApplicable() {}
-
-  get hunger() {
-    return this.#hunger
-  }
-
-  get happiness() {
-    return this.#happiness
-  }
-
-  get health() {
-    return this.#health
-  }
-
-  get sanity() {
-    return this.#sanity
-  }
 
   @action
   set hunger(value: number) {
