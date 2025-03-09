@@ -1,7 +1,7 @@
 import './floatAndFade.css' // Import the CSS file
 
 export default function ColorButton({
-  textColor = '#333333',
+  textColor = 'white',
   children,
   onClick,
   isFirst = false,
@@ -28,6 +28,7 @@ export default function ColorButton({
       `}
       style={{
         color: textColor,
+        textShadow: '1px 1px 4px rgba(0, 0, 0, 1)',
         '--base-color': baseColor,
         '--base-color-dark': `${baseColor
           .split(',')

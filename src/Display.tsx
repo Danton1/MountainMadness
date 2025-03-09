@@ -54,7 +54,7 @@ export const Display = observer(({ game }: Props) => {
             <ColorButton
               baseColor="250, 160, 160"
               setCount={setCount} // Pass setCount to the button
-              textColor="black"
+              textColor="white"
               isFirst={true} // Mark the first button
             >
               Feed
@@ -62,14 +62,14 @@ export const Display = observer(({ game }: Props) => {
             <ColorButton
               baseColor="255, 213, 128"
               setCount={setCount} // Pass setCount to the button
-              textColor="black"
+              textColor="white"
             >
               Play
             </ColorButton>
             <ColorButton
               baseColor="144, 238, 144"
               setCount={setCount} // Pass setCount to the button
-              textColor="black"
+              textColor="white"
               isLast={true} // Mark the last button
             >
               Clean

@@ -24,6 +24,7 @@ export default function DamageNumber({
       style={{
         '--random-x': `${randomX}px`,
         color: `rgb(${darkColor})`,
+        textShadow: '1px 1px 4px rgba(0, 0, 0, 0.5)',
       }}
     >
       {value}
