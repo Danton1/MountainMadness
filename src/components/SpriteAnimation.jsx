@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-export default function SpriteAnimation() {
+export default function SpriteAnimation({ width, height }) {
   const [gifSrc, setGifSrc] = useState(null);
-
-  // Desired constant size for the gif
-  const constantWidth = 200; // Desired width
-  const constantHeight = 200; // Desired height
 
   useEffect(() => {
     // Set the source of the local GIF in the public folder
@@ -21,14 +17,15 @@ export default function SpriteAnimation() {
 
   return (
     <div style={{ textAlign: "center", position: "relative" }}>
+      {/* Image with dynamic width and height passed as props */}
       <img
         src={gifSrc}
         alt="Animated GIF"
         style={{
-          width: `${constantWidth}px`, // Apply constant width
-          height: `${constantHeight}px`, // Apply constant height
+          width: `${width}px`, // Apply dynamic width from props
+          height: `${height}px`, // Apply dynamic height from props
           objectFit: "contain", // Fit the GIF without distortion
-          imageRendering: "pixelated", // Apply integer scaling
+          imageRendering: "pixelated", // Apply integer scaling to avoid blurring
         }}
       />
     </div>
