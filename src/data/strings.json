@@ -1,0 +1,75 @@
+
+{
+    "SaneCat": {
+        "1": "Meow Meow",
+        "2": "Meow Meow Meow",
+        "3": "🎵 Meow Meow Meow Meooooooooow",
+        "4": "Purr Purr",
+        "5": "😸",
+        "6": "😺",
+        "7": "😻"
+    },
+    "CrazyCat25": {
+        "1": "I think I saw a ghost",
+        "2": "Something's not right",
+        "3": "Why is the world spinning?",
+        "4": "I'm watching you sleep",
+        "5": "I love you human",
+        "6": "I'm feeling a bit off",
+        "7": "Give me a hug 😻"
+    },
+    "CrazyCat50": {
+        "1": "What's that behind you? 👀",
+        "2": "I'm not crazy, you're crazy",
+        "3": "🎵 Meow Meow Meow Meooooooooow",
+        "4": "I hear voices",
+        "5": "The walls are closing in",
+        "6": "I can't trust anyone",
+        "7": "They're watching me"
+
+    },
+    "CrazyCat75": {
+        "1": "💀🔪",
+        "2": "Fear me",
+        "3": "I'm watching you sleep",
+        "4": "You can't escape me",
+        "5": "I will find you",
+        "6": "YOU ARE MINE",
+        "7": "The end is near"
+    },
+    "CrazyCat100": {
+        "1": "I SEE YOU HUMAN",
+        "2": "I KNOW WHAT YOU DID",
+        "3": "I will eat your face like a tuna sandwich",
+        "4": "I will eat your soul",
+        "5": "I'm coming for you",
+        "6": "You can't hide from me",
+        "7": "Why did you abandon me?"
+    },
+    "CannibalCat": {
+        "1": "Watch me eat my own tail",
+        "2": "I will eat you next",
+        "3": "I'm crave flesh",
+        "4": "Nothing can stop me 😋",
+        "5": "I'm a monster",
+        "6": "Don't make me eat my other paw",
+        "7": "Cat flesh is the best flesh"
+    },
+    "CatLaughs": {
+        "1": "😹",
+        "2": "😹😹",
+        "3": "😹😹😹",
+        "4": "HAHAHHA",
+        "6": "You are so funny, human",
+        "7": "😹😹😹😹"
+    },
+    "Door": {
+        "1": "Did you hear that?",
+        "2": "Is that your mom?",
+        "3": "Meow",
+        "4": "Meow who?",
+        "5": "Meow let me in",
+        "6": "Meow let me out",
+        "7": "Meow let me in or I'll eat your face"
+    }
+}
