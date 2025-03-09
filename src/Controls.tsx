@@ -44,12 +44,12 @@ export const Controls = observer(({ gameState }: Props) => {
     case 'PET_IDLE':
       return <ActionMenu gameState={gameState} />
     case 'PET_FEEDING':
-      return <div>Feeding pet...</div>
+      return <div className="p-16 text-2xl">Feeding pet...</div>
     case 'PET_PLAYING':
-      return <div>Playing with pet...</div>
+      return <div className="p-16 text-2xl">Playing with pet...</div>
     case 'PET_CLEANING':
-      return <div>Cleaning pet...</div>
+      return <div className="p-16 text-2xl">Cleaning pet...</div>
     default:
-      return <div>Pet is busy...</div>
+      return <div className="p-16 text-2xl">Pet is busy...</div>
   }
 })

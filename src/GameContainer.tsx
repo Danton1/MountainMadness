@@ -5,20 +5,26 @@ import { Controls } from './Controls.jsx'
 import { useCallback, useEffect } from 'react'
 import { observer } from 'mobx-react'
 import GameEnd from './components/gameEnd.jsx'
+import { autorun } from 'mobx'
 
 const GameComponent = observer(() => {
-  const [gameState, setGameState] = useLocalStorage<Game>(
-    'game-state',
-    new GameState(),
-  )
+  // const [gameState, setGameState] = useLocalStorage<Game>(
+  //   'game-state',
+  //   new GameState(),
+  // )
+  const gameState = new GameState()
 
   if (!gameState) {
     throw new Error('Game state is somehow undefined')
   }
 
+  // autorun(() => {
+  //   setGameState(gameState)
+  // })
+
   // Make sure timers start when component mounts
   useEffect(() => {
-    if (!gameState.isGameOver) {
+    if (!gameState.shouldShowGameOver) {
       gameState.startTimers()
     }
 
@@ -37,12 +43,12 @@ const GameComponent = observer(() => {
 
   return (
     <div className="h-full w-full">
-      {!gameState.isGameOver && (
+      {!gameState.shouldShowGameOver && (
         <Display game={gameState}>
           <Controls gameState={gameState} />
         </Display>
       )}
-      {gameState.isGameOver && <GameEnd exitFn={handleEndOverlay} />}
+      {gameState.shouldShowGameOver && <GameEnd exitFn={handleEndOverlay} />}
     </div>
   )
 })

@@ -1,5 +1,5 @@
 import { GAME_STATE } from './index'
-import type { Pet } from './Pet'
+import type Pet from './Pet'
 
 export type IntervalToken = ReturnType<typeof setInterval> | null
 export type StatName = 'hunger' | 'happiness' | 'health' | 'sanity'

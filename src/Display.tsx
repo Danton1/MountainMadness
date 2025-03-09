@@ -14,14 +14,22 @@ interface Props {
 export const Display = observer(({ game, children }: Props) => {
   // Use the pet's properties from the MobX state
   const { pet, currentDialogue, talkingActive } = game
-  const hungerValue = pet.hunger
-  const happinessValue = pet.happiness
-  const healthValue = pet.health
-  const insanityValue = pet.sanity
+  const hungerValue = pet?.hunger ?? 100
+  const happinessValue = pet?.happiness ?? 100
+  const healthValue = pet?.health ?? 100
+  const insanityValue = pet?.sanity ?? 100
 
   useEffect(() => {
-    game.triggerPetTalking()
-  }, [hungerValue, happinessValue, insanityValue])
+    // Only trigger pet talking if pet is defined and values have changed
+    if (
+      pet &&
+      (hungerValue !== undefined ||
+        happinessValue !== undefined ||
+        insanityValue !== undefined)
+    ) {
+      game.triggerPetTalking()
+    }
+  }, [hungerValue, happinessValue, insanityValue, pet])
 
   // Define the size you want to set for the GIF
   const constantWidth = 150
@@ -29,12 +37,12 @@ export const Display = observer(({ game, children }: Props) => {
 
   return (
     <div className="flex flex-col place-items-stretch h-full">
-      <div className="flex-auto flex flex-row gap-[30px] items-center justify-center top-colored-section">
+      <div className="grow flex flex-row gap-[30px] items-center justify-center top-colored-section  border-b-4 border-black">
         <StatusBar title="Hunger" value={hungerValue} />
         <StatusBar title="Happiness" value={happinessValue} />
         <StatusBar title="Insanity" value={insanityValue} />
       </div>
-      <div className="flex-auto flex items-center justify-center checkered-background">
+      <div className="grow flex items-center justify-center checkered-background">
         <div className="relative">
           <div className="pet-shadow absolute"></div> {/* Add shadow */}
           {/* Speech bubble popover */}
@@ -49,34 +57,9 @@ export const Display = observer(({ game, children }: Props) => {
           />
         </div>
       </div>
-      <div className="flex-auto bottom-colored-section">{children}</div>
+      <div className="grow bottom-colored-section border-t-4 border-black">
+        {children}
+      </div>
     </div>
-    // <div className="checkered-background hero bg-base-200 flex flex-col">
-    // <div/>
-
-    //   {/* Add top colored section */}
-    //   <div className="flex-col flex-grow fixed top-[33%] h-[33%] left-0 w-full">
-    //     <div className="pet-status-container">
-    // <div className="pet-container">
-    //   <div className="pet-shadow"></div> {/* Add shadow */}
-    //   <div className="main-element">
-    //     <SpriteAnimation width={constantWidth} height={constantHeight} />
-    //   </div>
-    // </div>
-
-    //       <div className="status-bars">
-    //         <div className="status-bar">
-    //           <StatusBar title="Hunger" value={hungerValue} />
-    //         </div>
-    //         <div className="status-bar">
-    //           <StatusBar title="Happiness" value={happinessValue} />
-    //         </div>
-    //         <div className="status-bar">
-    //           <StatusBar title="Insanity" value={insanityValue} />
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   )
 })
