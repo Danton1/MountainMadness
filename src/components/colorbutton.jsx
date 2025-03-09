@@ -10,7 +10,7 @@ export default function ColorButton({
     justifyContent: 'center',
     lineHeight: '1',
     textDecoration: 'none',
-    color: textColor, // Dynamically set the text color
+    color: textColor,
     fontSize: '18px',
     fontWeight: 'bold',
     borderRadius: '20px',
@@ -24,9 +24,9 @@ export default function ColorButton({
     border: '0',
     cursor: 'pointer',
     position: 'relative',
+    boxSizing: 'border-box', // Ensures padding and borders are included in the width/height
   }
 
-  // Styles for the pseudo-element
   const beforeStyles = {
     content: '""',
     position: 'absolute',
@@ -35,15 +35,16 @@ export default function ColorButton({
     marginInline: 'auto',
     background: 'linear-gradient(hsl(240, 74%, 30%), hsl(0, 0%, 38%))',
     borderRadius: '100vw',
+    padding: '10px',
   }
 
   return (
     <button
       onClick={onClick} // Update count when button is clicked
       style={buttonStyles}
-      className="w-[175px] hover:w-[176px] h-50px hover:h-[51px] shadow-xl hover:shadow-2xl "
+      className="first:m-[18px] last:m-[18px] mx-0 w-[175px] hover:w-[176px] h-50px hover:h-[51px] shadow-xl hover:shadow-2xl "
     >
-      {children} {/* Render the custom text or content passed to the button */}
+      {children}
       <span style={beforeStyles}></span>
     </button>
   )

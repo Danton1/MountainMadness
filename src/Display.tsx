@@ -4,6 +4,7 @@ import type { Game } from './game-state'
 
 import SpriteAnimation from './components/SpriteAnimation'
 import StatusBar from './components/StatusBar'
+import ColorButton from './components/ColorButton'
 import './display.css'
 
 interface Props {
@@ -33,18 +34,29 @@ export const Display = observer(({ game }: Props) => {
           />
         </div>
 
-        {/* <Pet
-          hunger={hungerValue}
-          happiness={happinessValue}
-          health={healthValue}
-          sanity={insanityValue}
-        /> */}
-
-        <div className="text-rose-900">
-          <StatusBar title="Health" value={healthValue} />
-          <StatusBar title="Hunger" value={hungerValue} />
-          <StatusBar title="Happiness" value={happinessValue} />
-          <StatusBar title="Insanity" value={insanityValue} />
+        <div className="button-scroll-container">
+          <div className="button-container">
+            <ColorButton
+              setCount={setCount} // Pass setCount to the button
+              textColor="black"
+              isFirst={true} // Mark the first button
+            >
+              Feed
+            </ColorButton>
+            <ColorButton
+              setCount={setCount} // Pass setCount to the button
+              textColor="black"
+            >
+              Play
+            </ColorButton>
+            <ColorButton
+              setCount={setCount} // Pass setCount to the button
+              textColor="black"
+              isLast={true} // Mark the last button
+            >
+              Clean
+            </ColorButton>
+          </div>
         </div>
       </div>
     </div>

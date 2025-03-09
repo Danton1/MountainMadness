@@ -21,6 +21,32 @@
   margin-bottom: 4vh;
 }
 
+.button-scroll-container {
+  overflow-x: auto; /* Enable horizontal scrolling */
+  width: 100%; /* Ensure it takes full width */
+  padding: 0 18px; /* Add padding to prevent clipping */
+}
+
+.button-container {
+  display: flex;
+  white-space: nowrap; /* Prevent button wrapping */
+  gap: 20px; /* Adjust spacing between buttons */
+  align-items: center;
+  justify-content: flex-start; /* Align buttons to the start */
+  min-height: 100px;
+  margin: 0; /* Remove default margin */
+  box-sizing: border-box;
+  overflow-x: visible; /* Allow shadows and pseudo-elements to overflow */
+}
+
+/* Adjust button styles for highlights */
+.button .button {
+  margin: 0 20px; /* Add horizontal space between buttons */
+  box-sizing: border-box;
+  position: relative;
+  transition: box-shadow 0.2s ease; /* Smooth transition for shadow effects */
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
