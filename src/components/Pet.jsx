@@ -1,5 +1,5 @@
 const Pet = ({ hunger, happiness, sanity, gameEnd }) => {
-  if (hunger <= 90 || happiness <= 0 || sanity >= 100) {
+  if (hunger <= 0 || happiness <= 0 || sanity >= 100) {
     gameEnd()
   }
 

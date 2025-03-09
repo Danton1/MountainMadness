@@ -8,8 +8,9 @@ import GameEnd from './components/gameEnd.jsx';
 export default function Game() {
   const [gameOver, setGameOver] = useState(false);    //This value should be updated when the game ends
 
-  const endOverlay = useCallback((adWatched: boolean) => {
-    adWatched ? setGameOver(false) : window.location.reload();
+  const endOverlay = useCallback((adWatched: boolean) => {  
+    setGameOver(false);
+    adWatched ? alert("Pet Revived!") : alert("Pet died! New game.");   //TODO: Make this a real difference
   }, []);
 
   const startOverlay = useCallback(() => {
@@ -27,9 +28,7 @@ export default function Game() {
 
   return (
     <div>
-      <div style={gameOver ? {display: 'none'} : {display: 'block'}}>
-        <Display gameEnd={startOverlay} state={val} />
-      </div>
+      {!gameOver && <Display gameEnd={startOverlay} state={val} />}
       <Controls setState={setVal} />
       {gameOver && <GameEnd exitFn={endOverlay} />}
     </div>
