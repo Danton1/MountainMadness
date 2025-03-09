@@ -31,6 +31,7 @@ export const Display = observer(({ game }: Props) => {
             width={constantWidth}
             height={constantHeight}
             insanity={insanityValue}
+            animationState={game.state}
           />
         </div>
 
