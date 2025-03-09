@@ -5,8 +5,8 @@ import MovingButton from "./movingbutton";
 export default function GameEnd({ exitFn }) {
   const [video, setVideo] = useState(false);
 
-  function exit() {
-    exitFn();
+  function exit(adWatched) {
+    exitFn(adWatched);
   }
 
   const popupStyle = {
@@ -28,7 +28,7 @@ export default function GameEnd({ exitFn }) {
       </h1>
       <h2 style={{ margin: "12px 0" }}>
         Watch an ad to continue or{" "}
-        <span onClick={exit} style={{ cursor: "pointer" }}>
+        <span onClick={() => exit(false)} style={{ cursor: "pointer" }}>
           exit here
         </span>
       </h2>
@@ -41,10 +41,10 @@ export default function GameEnd({ exitFn }) {
         }}
       >
         <ColorButton clickFn={() => setVideo(true)}>Watch AD to revive</ColorButton>
-        <MovingButton clickFn={exit} buttonColor="red">Exit</MovingButton> {/* Use MovingButton for the exit button */}
+        <MovingButton clickFn={() => exit(false)} buttonColor="red">Exit</MovingButton> {/* Use MovingButton for the exit button */}
       </div>
       {video && (
-        <video autoPlay onEnded={exit} style={{ marginTop: "20px", width: "100%", maxWidth: "600px" }}>
+        <video autoPlay onEnded={() => exit(true)} style={{ marginTop: "20px", width: "100%", maxWidth: "600px" }}>
           <source src="src/assets/yukon.mp4" type="video/mp4" />
         </video>
       )}
