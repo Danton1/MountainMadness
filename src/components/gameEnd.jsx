@@ -41,7 +41,7 @@ export default function GameEnd({ exitFn }) {
         }}
       >
         <ColorButton clickFn={() => setVideo(true)}>Watch AD to revive</ColorButton>
-        <MovingButton clickFn={exit}>Exit</MovingButton> {/* Use MovingButton for the exit button */}
+        <MovingButton clickFn={exit} buttonColor="red">Exit</MovingButton> {/* Use MovingButton for the exit button */}
       </div>
       {video && (
         <video autoPlay onEnded={exit} style={{ marginTop: "20px", width: "100%", maxWidth: "600px" }}>
