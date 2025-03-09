@@ -13,8 +13,10 @@ const Pet = ({hunger, happiness, sanity}) => {
 
     if (hungerValue <= 0 || happinessValue <= 0 || sanityValue >= 100) {
       return (
-        <div className="text-center text-2xl text-white bg-red-500 p-4">
-          Your pet has died!
+        <div className="tooltip" data-tip="hello">
+            <div className="text-center text-2xl text-white bg-red-500 p-4">
+            💀 Your pet has died!
+            </div>
         </div>
       );
     }

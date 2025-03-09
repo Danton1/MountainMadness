@@ -9,8 +9,8 @@ const StatusBar = ({ title, value }) => {
 
     return (
         <>
-        <div class="text-xl font-medium text-black dark:text-white">{title}</div>
-        <progress className="progress w-56" value={count} max="100"></progress>
+        <div class="text-xl font-medium text-sky-600">{title}</div>
+        <progress className="progress progress-info w-56" value={count} max="100"></progress>
         </>
     );
 }
