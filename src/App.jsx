@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-import ColorButton from "./components/colorbutton";
+import ColorButton from "./components/ColorButton";
+import SpriteAnimation from "./components/SpriteAnimation"; // Import the SpriteAnimation
 
 function App() {
   const [count, setCount] = useState(0);
@@ -8,6 +9,9 @@ function App() {
   return (
     <>
       <h1>Vite + React</h1>
+      <div>
+        <SpriteAnimation /> {/* Use SpriteAnimation here */}
+      </div>
       <div>
         <ColorButton
           setCount={setCount} // Pass setCount to the button
