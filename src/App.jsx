@@ -4,9 +4,8 @@ import Game from './Game'
 function App() {
   return (
     <>
-      <div className="m-auto flex flex-col">
-        <h1>Tamagotchi :)</h1>
-        <main className="flex-grow">
+      <div className="w-full h-full">
+        <main className="w-full h-full">
           <Game />
         </main>
       </div>
