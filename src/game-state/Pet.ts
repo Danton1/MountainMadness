@@ -1,4 +1,4 @@
-import superjson from 'superjson'
+import superjson, { SuperJSON } from 'superjson'
 
 export default class Pet {
   #hunger: number
@@ -14,13 +14,7 @@ export default class Pet {
     this.#sanity = 100
   }
 
-  toString() {
-    return superjson.stringify(this)
-  }
-
-  fromString(value: string) {
-    return superjson.parse<typeof this>(value)
-  }
+  isApplicable() {}
 
   get hunger() {
     return this.#hunger
@@ -54,3 +48,5 @@ export default class Pet {
     this.#sanity = value
   }
 }
+
+SuperJSON.registerClass(Pet, 'Pet')
