@@ -112,8 +112,8 @@
   height: 33%; /* 1/3 of the viewport height */
   background: linear-gradient(
     to bottom,
-    rgb(240, 240, 240),
-    rgb(230, 230, 230)
+    rgb(245, 245, 245),
+    rgb(235, 235, 235)
   );
   border-bottom: 10px solid; /* Add border */
   border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent) 1; /* Gradient for border */
@@ -126,7 +126,7 @@
   left: 0;
   width: 100%;
   height: 33%; /* 1/3 of the viewport height */
-  background: linear-gradient(to top, rgb(240, 240, 240), rgb(230, 230, 230));
+  background: linear-gradient(to top, rgb(245, 245, 245), rgb(235, 235, 235));
   border-top: 10px solid; /* Add border */
   border-image: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent) 1; /* Gradient for border */
   z-index: 1; /* Ensure it is above the scrolling background */
