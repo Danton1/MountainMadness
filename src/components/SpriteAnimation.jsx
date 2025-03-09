@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 
 export default function SpriteAnimation({ width, height }) {
-  const [gifSrc, setGifSrc] = useState(null);
+  const [gifSrc, setGifSrc] = useState(null)
 
   useEffect(() => {
     // Set the source of the local GIF in the public folder
-    setGifSrc("/pet-animations/idle.gif");
+    setGifSrc('/pet-animations/idle.gif')
 
     // Cleanup function
     return () => {
-      setGifSrc(null);
-    };
-  }, []);
+      setGifSrc(null)
+    }
+  }, [])
 
-  if (!gifSrc) return null; // Don't render until GIF source is loaded
+  if (!gifSrc) return null // Don't render until GIF source is loaded
 
   return (
-    <div style={{ textAlign: "center", position: "relative" }}>
+    <div style={{ textAlign: 'center', position: 'relative' }}>
       {/* Image with dynamic width and height passed as props */}
       <img
         src={gifSrc}
@@ -24,10 +24,10 @@ export default function SpriteAnimation({ width, height }) {
         style={{
           width: `${width}px`, // Apply dynamic width from props
           height: `${height}px`, // Apply dynamic height from props
-          objectFit: "contain", // Fit the GIF without distortion
-          imageRendering: "pixelated", // Apply integer scaling to avoid blurring
+          objectFit: 'contain', // Fit the GIF without distortion
+          imageRendering: 'pixelated', // Apply integer scaling to avoid blurring
         }}
       />
     </div>
-  );
+  )
 }

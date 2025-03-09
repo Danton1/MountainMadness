@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "daisyui";
 
 @font-face {
@@ -23,7 +23,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 
 a {
   font-weight: 500;
@@ -83,4 +82,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-

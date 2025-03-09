@@ -1,7 +1,7 @@
 export default function ColorButton({
   setCount,
-  buttonColor = "blue",
-  textColor = "#333333",
+  buttonColor = 'blue',
+  textColor = '#333333',
   children,
 }) {
   const buttonStyles = {
@@ -10,15 +10,15 @@ export default function ColorButton({
       radial-gradient(circle at 10px 5px, hsl(0 0% 100% / 0.25) 5px, transparent 5px),
       radial-gradient(circle at 0px 5px, hsl(0 0% 100% / 0.25) 5px, transparent 5px),
       linear-gradient(${buttonColor}, hsl(181, 95%, 92%))`, // Use the passed button color
-    padding: "0.5em 3em",
-    backgroundSize: "100%, calc(100% - 20px), 10px 10px, 10px 10px, 100%",
-    backgroundPosition: "top, top center, top left, top right, center",
-    backgroundRepeat: "no-repeat",
-    border: "0",
-    borderRadius: "100vw",
-    position: "relative",
+    padding: '0.5em 3em',
+    backgroundSize: '100%, calc(100% - 20px), 10px 10px, 10px 10px, 100%',
+    backgroundPosition: 'top, top center, top left, top right, center',
+    backgroundRepeat: 'no-repeat',
+    border: '0',
+    borderRadius: '100vw',
+    position: 'relative',
     color: textColor, // Dynamically set the text color
-  };
+  }
 
   const beforeStyles = {
     content: '""',
