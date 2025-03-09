@@ -30,7 +30,7 @@
 .button-container {
   display: flex;
   white-space: nowrap; /* Prevent button wrapping */
-  gap: 20px; /* Adjust spacing between buttons */
+  gap: 30px; /* Adjust spacing between buttons */
   align-items: center;
   justify-content: flex-start; /* Align buttons to the start */
   min-height: 100px;
