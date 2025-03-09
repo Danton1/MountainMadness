@@ -4,6 +4,7 @@ export default function ColorButton({
   setCount,
   textColor = '#333333', // You can keep the text color as a prop if you like
   children,
+  clickFn = () => setCount((prevCount) => prevCount + 1)
 }) {
   const [isHovered, setIsHovered] = useState(false)
 
@@ -48,7 +49,7 @@ export default function ColorButton({
 
   return (
     <button
-      onClick={() => setCount((prevCount) => prevCount + 1)} // Update count when button is clicked
+      onClick={clickFn} // Update count when button is clicked
       style={buttonStyles}
       onMouseEnter={() => setIsHovered(true)} // Set hover state
       onMouseLeave={() => setIsHovered(false)} // Remove hover state
