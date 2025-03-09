@@ -18,7 +18,7 @@ export const Display = observer(({ game, children }: Props) => {
   const hungerValue = pet?.hunger ?? 100
   const happinessValue = pet?.happiness ?? 100
   const healthValue = pet?.health ?? 100
-  const insanityValue = pet?.sanity ?? 100
+  const insanityValue = pet?.sanity ?? 0
 
   useEffect(() => {
     // Only trigger pet talking if pet is defined and values have changed
