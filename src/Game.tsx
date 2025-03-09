@@ -2,19 +2,19 @@ import { useLocalStorage } from './use-local-storage.js'
 import { GameState } from './game-state/index.js'
 import { Display } from './Display.js'
 import { Controls } from './Controls.js'
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import GameEnd from './components/gameEnd.jsx';
 
 export default function Game() {
   const [gameOver, setGameOver] = useState(false);    //This value should be updated when the game ends
 
-  function endOverlay(){
+  const endOverlay = useCallback(() => {
     setGameOver(false);
-  }
+  }, []);
 
-  function startOverlay(){
+  const startOverlay = useCallback(() => {
     setGameOver(true);
-  }
+  }, []);
   
   const [val, setVal] = useLocalStorage<GameState>(
     'game-state',
