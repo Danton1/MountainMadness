@@ -28,3 +28,24 @@
     background-position: 100vw 80vh; /* Adjusted for rotated effect */
   }
 }
+
+.pet-status-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the content */
+  width: 100%;
+  padding: 20px; /* Reduced padding */
+  gap: 40px; /* Add gap between pet and status bars */
+}
+
+.pet-container {
+  display: flex;
+  justify-content: center;
+}
+
+.status-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Reduced gap */
+  align-items: center; /* Center the status bars */
+}

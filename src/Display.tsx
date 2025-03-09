@@ -26,12 +26,32 @@ export const Display = observer(({ game }: Props) => {
   return (
     <div className="checkered-background hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col">
-        <div className="main-element">
-          <SpriteAnimation
-            width={constantWidth}
-            height={constantHeight}
-            // animationState={game.state}
-          />
+        <div className="pet-status-container">
+          <div className="pet-container">
+            <div className="main-element">
+              <SpriteAnimation width={constantWidth} height={constantHeight} />
+            </div>
+          </div>
+
+          <div className="status-bars">
+            <Pet
+              hunger={hungerValue}
+              happiness={happinessValue}
+              sanity={insanityValue}
+              gameEnd={gameEnd}
+            />
+            <StatusBar title="Hunger" value={hungerValue} />
+            <StatusBar
+              title="Happiness"
+              value={happinessValue} /* rate={50} */
+            />
+            <StatusBar
+              title="Insanity"
+              value={insanityValue}
+              // rate={2000}
+              // direction="up"
+            />
+          </div>
         </div>
 
         <div className="button-scroll-container">
