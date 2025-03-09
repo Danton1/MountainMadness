@@ -19,7 +19,7 @@ export default function GameEnd({exitFn}) {
     backgroundColor: "#242424",
     border: "1px solid white",
     borderRadius: "20px",
-    padding: "20px",
+    padding: "20px"
   };
 
   useEffect(() => {
@@ -57,10 +57,10 @@ export default function GameEnd({exitFn}) {
 
   return (
     <div style={popupStyle}>
-      <h1>
+      <h1 sx={{mb: 12}}>
         Tamagotchi is <b>DEAD</b>
       </h1>
-      <h2>
+      <h2 style={{margin: '12px 0'}}>
         Watch an ad to continue or <span onClick={exit} style={{cursor: 'pointer'}}>exit here</span>
       </h2>
       <div
