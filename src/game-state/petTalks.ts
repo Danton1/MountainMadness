@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ColorButton from '../components/colorbutton'
+import ColorButton from '../components/ColorButton'
 import MovingButton from '../components/movingbutton'
 import {
   SaneCat,
