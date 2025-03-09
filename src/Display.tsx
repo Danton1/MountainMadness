@@ -4,9 +4,7 @@ import type { Game } from './game-state'
 
 import SpriteAnimation from './components/SpriteAnimation'
 import StatusBar from './components/StatusBar'
-import ColorButton from './components/ColorButton'
 import './display.css'
-import { Controls } from './Controls'
 
 interface Props {
   game: Game
@@ -35,13 +33,15 @@ export const Display = observer(({ game, children }: Props) => {
       <div className="flex-auto flex items-center justify-center checkered-background">
         <div className="relative">
           <div className="pet-shadow absolute"></div> {/* Add shadow */}
-          <SpriteAnimation width={constantWidth} height={constantHeight} />
+          <SpriteAnimation
+            width={constantWidth}
+            height={constantHeight}
+            insanity={insanityValue}
+            animationState={game.state}
+          />
         </div>
       </div>
-      <div className="flex-auto bottom-colored-section">
-        {/* <Controls game={game} /> */}
-        {children}
-      </div>
+      <div className="flex-auto bottom-colored-section">{children}</div>
     </div>
     // <div className="checkered-background hero bg-base-200 flex flex-col">
     // <div/>
