@@ -4,7 +4,7 @@ import type { Game } from './game-state'
 
 import SpriteAnimation from './components/SpriteAnimation'
 import StatusBar from './components/StatusBar'
-import ColorButton from './components/ColorButton'
+import ColorButton from './components/colorbutton'
 import './display.css'
 
 interface Props {

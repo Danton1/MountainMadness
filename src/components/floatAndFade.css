@@ -1,0 +1,10 @@
+@keyframes floatAndFall {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px) translateX(var(--random-x));
+    opacity: 0;
+  }
+}
