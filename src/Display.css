@@ -1,3 +1,8 @@
+body,
+.checkered-background {
+  user-select: none; /* Prevent text selection on the entire page */
+}
+
 .checkered-background {
   width: 100%;
   height: 100%;
@@ -16,7 +21,7 @@
   background-position: 0 0;
 
   /* Maintain scrolling animation */
-  animation: scrollBackground 100s linear infinite;
+  animation: scrollBackground 100s linear infinite; /* Adjusted duration */
 }
 
 /* Adjust scrolling direction to match rotated background */
@@ -25,7 +30,7 @@
     background-position: 0 0;
   }
   100% {
-    background-position: 100vw 80vh; /* Adjusted for rotated effect */
+    background-position: 100% 100%; /* Adjusted for seamless effect */
   }
 }
 
@@ -112,7 +117,7 @@
   height: 33%; /* 1/3 of the viewport height */
   background: linear-gradient(
     to bottom,
-    rgb(245, 245, 245),
+    rgb(240, 240, 240),
     rgb(235, 235, 235)
   );
   border-bottom: 10px solid; /* Add border */
@@ -126,7 +131,7 @@
   left: 0;
   width: 100%;
   height: 33%; /* 1/3 of the viewport height */
-  background: linear-gradient(to top, rgb(245, 245, 245), rgb(235, 235, 235));
+  background: linear-gradient(to top, rgb(240, 240, 240), rgb(235, 235, 235));
   border-top: 10px solid; /* Add border */
   border-image: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent) 1; /* Gradient for border */
   z-index: 1; /* Ensure it is above the scrolling background */
