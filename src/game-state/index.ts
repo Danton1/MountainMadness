@@ -89,6 +89,22 @@ export class GameState {
   }
 
   @action
+  updateHunger(amount: number) {
+    this.pet.hunger += amount
+  }
+
+  @action
+  updateInsanity(amount: number) {
+    this.pet.sanity += amount
+    this.startTimers()
+  }
+
+  @action
+  updateHappiness(amount: number) {
+    this.pet.happiness += amount
+  }
+
+  @action
   resurrectPet(fullResurrection: boolean) {
     if (fullResurrection) {
       // Full resurrection from ad
@@ -144,6 +160,9 @@ export class GameState {
       hunger: isChanging ? 0 : this.pet.hunger,
       happiness: isChanging ? 0 : this.pet.happiness,
       sanity: this.pet.sanity,
+      updateHunger: this.updateHunger.bind(this),
+      updateInsanity: this.updateInsanity.bind(this),
+      updateHappiness: this.updateHappiness.bind(this),
     })
 
     // Wait for dialogue duration
